@@ -10,6 +10,24 @@ CREATE TABLE api_error(
       created_at datetime   , 
  PRIMARY KEY (id)) ; 
 
+CREATE TABLE banner( 
+      id  INTEGER    NOT NULL  , 
+      pessoa_id int   , 
+      foto text   , 
+      descricao text   , 
+      status text   , 
+      longitude double   , 
+      latitude double   , 
+      obs text   , 
+      mes varchar  (2)   , 
+      ano varchar  (4)   , 
+      mes_ano varchar  (6)   , 
+      created_at datetime   , 
+      update_at datetime   , 
+      delete_at datetime   , 
+ PRIMARY KEY (id),
+FOREIGN KEY(pessoa_id) REFERENCES pessoa(id)) ; 
+
 CREATE TABLE categoria( 
       id  INTEGER    NOT NULL  , 
       tipo_conta_id int   NOT NULL  , 
@@ -82,6 +100,18 @@ CREATE TABLE grupo_pessoa(
       id  INTEGER    NOT NULL  , 
       nome varchar  (255)   NOT NULL  , 
  PRIMARY KEY (id)) ; 
+
+CREATE TABLE item_banner_postagem( 
+      id  INTEGER    NOT NULL  , 
+      tipo_postagem_id int   NOT NULL  , 
+      banner_id int   NOT NULL  , 
+      data_inicio datetime   , 
+      data_fim datetime   , 
+      foto text   , 
+      obs text   , 
+ PRIMARY KEY (id),
+FOREIGN KEY(tipo_postagem_id) REFERENCES tipo_postagem(id),
+FOREIGN KEY(banner_id) REFERENCES banner(id)) ; 
 
 CREATE TABLE ordem_servico( 
       id  INTEGER    NOT NULL  , 
@@ -281,6 +311,14 @@ CREATE TABLE tipo_cliente(
 CREATE TABLE tipo_conta( 
       id  INTEGER    NOT NULL  , 
       nome varchar  (255)   NOT NULL  , 
+ PRIMARY KEY (id)) ; 
+
+CREATE TABLE tipo_postagem( 
+      id  INTEGER    NOT NULL  , 
+      descricao text   , 
+      created_at datetime   , 
+      update_at datetime   , 
+      delete_at datetime   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE tipo_produto( 

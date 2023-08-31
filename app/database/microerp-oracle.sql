@@ -8,6 +8,23 @@ CREATE TABLE api_error(
       created_at timestamp(0)   , 
  PRIMARY KEY (id)) ; 
 
+CREATE TABLE banner( 
+      id number(10)    NOT NULL , 
+      pessoa_id number(10)   , 
+      foto varchar(3000)   , 
+      descricao varchar(3000)   , 
+      status varchar(3000)   , 
+      longitude binary_double   , 
+      latitude binary_double   , 
+      obs varchar(3000)   , 
+      mes varchar  (2)   , 
+      ano varchar  (4)   , 
+      mes_ano varchar  (6)   , 
+      created_at timestamp(0)   , 
+      update_at timestamp(0)   , 
+      delete_at timestamp(0)   , 
+ PRIMARY KEY (id)) ; 
+
 CREATE TABLE categoria( 
       id number(10)    NOT NULL , 
       tipo_conta_id number(10)    NOT NULL , 
@@ -72,6 +89,16 @@ CREATE TABLE forma_pagamento(
 CREATE TABLE grupo_pessoa( 
       id number(10)    NOT NULL , 
       nome varchar  (255)    NOT NULL , 
+ PRIMARY KEY (id)) ; 
+
+CREATE TABLE item_banner_postagem( 
+      id number(10)    NOT NULL , 
+      tipo_postagem_id number(10)    NOT NULL , 
+      banner_id number(10)    NOT NULL , 
+      data_inicio timestamp(0)   , 
+      data_fim timestamp(0)   , 
+      foto varchar(3000)   , 
+      obs varchar(3000)   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE ordem_servico( 
@@ -248,6 +275,14 @@ CREATE TABLE tipo_conta(
       nome varchar  (255)    NOT NULL , 
  PRIMARY KEY (id)) ; 
 
+CREATE TABLE tipo_postagem( 
+      id number(10)    NOT NULL , 
+      descricao varchar(3000)   , 
+      created_at timestamp(0)   , 
+      update_at timestamp(0)   , 
+      delete_at timestamp(0)   , 
+ PRIMARY KEY (id)) ; 
+
 CREATE TABLE tipo_produto( 
       id number(10)    NOT NULL , 
       nome varchar  (255)    NOT NULL , 
@@ -255,13 +290,16 @@ CREATE TABLE tipo_produto(
 
  
   
- ALTER TABLE categoria ADD CONSTRAINT fk_categoria_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
+ ALTER TABLE banner ADD CONSTRAINT fk_banner_1 FOREIGN KEY (pessoa_id) references pessoa(id); 
+ALTER TABLE categoria ADD CONSTRAINT fk_categoria_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
 ALTER TABLE cidade ADD CONSTRAINT fk_cidade_1 FOREIGN KEY (estado_id) references estado(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_2 FOREIGN KEY (categoria_id) references categoria(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_3 FOREIGN KEY (forma_pagamento_id) references forma_pagamento(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_4 FOREIGN KEY (pessoa_id) references pessoa(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_5 FOREIGN KEY (ordem_servico_id) references ordem_servico(id); 
+ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_1 FOREIGN KEY (tipo_postagem_id) references tipo_postagem(id); 
+ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_2 FOREIGN KEY (banner_id) references banner(id); 
 ALTER TABLE ordem_servico ADD CONSTRAINT fk_ordem_servico_1 FOREIGN KEY (cliente_id) references pessoa(id); 
 ALTER TABLE ordem_servico_atendimento ADD CONSTRAINT fk_ordem_servico_atendimento_2 FOREIGN KEY (ordem_servico_id) references ordem_servico(id); 
 ALTER TABLE ordem_servico_atendimento ADD CONSTRAINT fk_ordem_servico_atendimento_3 FOREIGN KEY (solucao_id) references solucao(id); 
@@ -301,6 +339,21 @@ WHEN
 BEGIN 
 
 SELECT api_error_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+
+END;
+CREATE SEQUENCE banner_id_seq START WITH 1 INCREMENT BY 1; 
+
+CREATE OR REPLACE TRIGGER banner_id_seq_tr 
+
+BEFORE INSERT ON banner FOR EACH ROW 
+
+WHEN 
+
+(NEW.id IS NULL) 
+
+BEGIN 
+
+SELECT banner_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE categoria_id_seq START WITH 1 INCREMENT BY 1; 
@@ -421,6 +474,21 @@ WHEN
 BEGIN 
 
 SELECT grupo_pessoa_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+
+END;
+CREATE SEQUENCE item_banner_postagem_id_seq START WITH 1 INCREMENT BY 1; 
+
+CREATE OR REPLACE TRIGGER item_banner_postagem_id_seq_tr 
+
+BEFORE INSERT ON item_banner_postagem FOR EACH ROW 
+
+WHEN 
+
+(NEW.id IS NULL) 
+
+BEGIN 
+
+SELECT item_banner_postagem_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE ordem_servico_id_seq START WITH 1 INCREMENT BY 1; 
@@ -601,6 +669,21 @@ WHEN
 BEGIN 
 
 SELECT tipo_conta_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+
+END;
+CREATE SEQUENCE tipo_postagem_id_seq START WITH 1 INCREMENT BY 1; 
+
+CREATE OR REPLACE TRIGGER tipo_postagem_id_seq_tr 
+
+BEFORE INSERT ON tipo_postagem FOR EACH ROW 
+
+WHEN 
+
+(NEW.id IS NULL) 
+
+BEGIN 
+
+SELECT tipo_postagem_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE tipo_produto_id_seq START WITH 1 INCREMENT BY 1; 

@@ -8,6 +8,23 @@ CREATE TABLE api_error(
       created_at datetime2   , 
  PRIMARY KEY (id)) ; 
 
+CREATE TABLE banner( 
+      id  INT IDENTITY    NOT NULL  , 
+      pessoa_id int   , 
+      foto nvarchar(max)   , 
+      descricao nvarchar(max)   , 
+      status nvarchar(max)   , 
+      longitude float   , 
+      latitude float   , 
+      obs nvarchar(max)   , 
+      mes varchar  (2)   , 
+      ano varchar  (4)   , 
+      mes_ano varchar  (6)   , 
+      created_at datetime2   , 
+      update_at datetime2   , 
+      delete_at datetime2   , 
+ PRIMARY KEY (id)) ; 
+
 CREATE TABLE categoria( 
       id  INT IDENTITY    NOT NULL  , 
       tipo_conta_id int   NOT NULL  , 
@@ -72,6 +89,16 @@ CREATE TABLE forma_pagamento(
 CREATE TABLE grupo_pessoa( 
       id  INT IDENTITY    NOT NULL  , 
       nome varchar  (255)   NOT NULL  , 
+ PRIMARY KEY (id)) ; 
+
+CREATE TABLE item_banner_postagem( 
+      id  INT IDENTITY    NOT NULL  , 
+      tipo_postagem_id int   NOT NULL  , 
+      banner_id int   NOT NULL  , 
+      data_inicio datetime2   , 
+      data_fim datetime2   , 
+      foto nvarchar(max)   , 
+      obs nvarchar(max)   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE ordem_servico( 
@@ -248,6 +275,14 @@ CREATE TABLE tipo_conta(
       nome varchar  (255)   NOT NULL  , 
  PRIMARY KEY (id)) ; 
 
+CREATE TABLE tipo_postagem( 
+      id  INT IDENTITY    NOT NULL  , 
+      descricao nvarchar(max)   , 
+      created_at datetime2   , 
+      update_at datetime2   , 
+      delete_at datetime2   , 
+ PRIMARY KEY (id)) ; 
+
 CREATE TABLE tipo_produto( 
       id  INT IDENTITY    NOT NULL  , 
       nome varchar  (255)   NOT NULL  , 
@@ -255,13 +290,16 @@ CREATE TABLE tipo_produto(
 
  
   
- ALTER TABLE categoria ADD CONSTRAINT fk_categoria_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
+ ALTER TABLE banner ADD CONSTRAINT fk_banner_1 FOREIGN KEY (pessoa_id) references pessoa(id); 
+ALTER TABLE categoria ADD CONSTRAINT fk_categoria_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
 ALTER TABLE cidade ADD CONSTRAINT fk_cidade_1 FOREIGN KEY (estado_id) references estado(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_2 FOREIGN KEY (categoria_id) references categoria(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_3 FOREIGN KEY (forma_pagamento_id) references forma_pagamento(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_4 FOREIGN KEY (pessoa_id) references pessoa(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_5 FOREIGN KEY (ordem_servico_id) references ordem_servico(id); 
+ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_1 FOREIGN KEY (tipo_postagem_id) references tipo_postagem(id); 
+ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_2 FOREIGN KEY (banner_id) references banner(id); 
 ALTER TABLE ordem_servico ADD CONSTRAINT fk_ordem_servico_1 FOREIGN KEY (cliente_id) references pessoa(id); 
 ALTER TABLE ordem_servico_atendimento ADD CONSTRAINT fk_ordem_servico_atendimento_2 FOREIGN KEY (ordem_servico_id) references ordem_servico(id); 
 ALTER TABLE ordem_servico_atendimento ADD CONSTRAINT fk_ordem_servico_atendimento_3 FOREIGN KEY (solucao_id) references solucao(id); 

@@ -8,6 +8,23 @@ CREATE TABLE api_error(
       created_at timestamp   , 
  PRIMARY KEY (id)) ; 
 
+CREATE TABLE banner( 
+      id  SERIAL    NOT NULL  , 
+      pessoa_id integer   , 
+      foto text   , 
+      descricao text   , 
+      status text   , 
+      longitude float   , 
+      latitude float   , 
+      obs text   , 
+      mes varchar  (2)   , 
+      ano varchar  (4)   , 
+      mes_ano varchar  (6)   , 
+      created_at timestamp   , 
+      update_at timestamp   , 
+      delete_at timestamp   , 
+ PRIMARY KEY (id)) ; 
+
 CREATE TABLE categoria( 
       id  SERIAL    NOT NULL  , 
       tipo_conta_id integer   NOT NULL  , 
@@ -72,6 +89,16 @@ CREATE TABLE forma_pagamento(
 CREATE TABLE grupo_pessoa( 
       id  SERIAL    NOT NULL  , 
       nome varchar  (255)   NOT NULL  , 
+ PRIMARY KEY (id)) ; 
+
+CREATE TABLE item_banner_postagem( 
+      id  SERIAL    NOT NULL  , 
+      tipo_postagem_id integer   NOT NULL  , 
+      banner_id integer   NOT NULL  , 
+      data_inicio timestamp   , 
+      data_fim timestamp   , 
+      foto text   , 
+      obs text   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE ordem_servico( 
@@ -248,6 +275,14 @@ CREATE TABLE tipo_conta(
       nome varchar  (255)   NOT NULL  , 
  PRIMARY KEY (id)) ; 
 
+CREATE TABLE tipo_postagem( 
+      id  SERIAL    NOT NULL  , 
+      descricao text   , 
+      created_at timestamp   , 
+      update_at timestamp   , 
+      delete_at timestamp   , 
+ PRIMARY KEY (id)) ; 
+
 CREATE TABLE tipo_produto( 
       id  SERIAL    NOT NULL  , 
       nome varchar  (255)   NOT NULL  , 
@@ -255,13 +290,16 @@ CREATE TABLE tipo_produto(
 
  
   
- ALTER TABLE categoria ADD CONSTRAINT fk_categoria_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
+ ALTER TABLE banner ADD CONSTRAINT fk_banner_1 FOREIGN KEY (pessoa_id) references pessoa(id); 
+ALTER TABLE categoria ADD CONSTRAINT fk_categoria_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
 ALTER TABLE cidade ADD CONSTRAINT fk_cidade_1 FOREIGN KEY (estado_id) references estado(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_1 FOREIGN KEY (tipo_conta_id) references tipo_conta(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_2 FOREIGN KEY (categoria_id) references categoria(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_3 FOREIGN KEY (forma_pagamento_id) references forma_pagamento(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_4 FOREIGN KEY (pessoa_id) references pessoa(id); 
 ALTER TABLE conta ADD CONSTRAINT fk_conta_5 FOREIGN KEY (ordem_servico_id) references ordem_servico(id); 
+ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_1 FOREIGN KEY (tipo_postagem_id) references tipo_postagem(id); 
+ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_2 FOREIGN KEY (banner_id) references banner(id); 
 ALTER TABLE ordem_servico ADD CONSTRAINT fk_ordem_servico_1 FOREIGN KEY (cliente_id) references pessoa(id); 
 ALTER TABLE ordem_servico_atendimento ADD CONSTRAINT fk_ordem_servico_atendimento_2 FOREIGN KEY (ordem_servico_id) references ordem_servico(id); 
 ALTER TABLE ordem_servico_atendimento ADD CONSTRAINT fk_ordem_servico_atendimento_3 FOREIGN KEY (solucao_id) references solucao(id); 

@@ -98,6 +98,28 @@
       </menuitem>
     </menu>
   </menuitem>
+  <menuitem label="Banner">
+    <icon>fas:desktop fa-fw </icon>
+    <menu>
+      <menuitem label="Configurações">
+        <icon>fas:cogs fa-fw </icon>
+        <menu>
+          <menuitem label="Tipo postagens">
+            <icon>far:circle fa-fw </icon>
+            <action>TipoPostagemHeaderList#method=onShow</action>
+          </menuitem>
+        </menu>
+      </menuitem>
+      <menuitem label="Banners">
+        <icon>far:circle fa-fw </icon>
+        <action>BannerHeaderList#method=onShow</action>
+      </menuitem>
+      <menuitem label="Busca com Cards">
+        <icon>far:circle fa-fw </icon>
+        <action>BannerCardList#method=onShow</action>
+      </menuitem>
+    </menu>
+  </menuitem>
   <menuitem label="_t{Administration}">
     <icon>fas:home fa-fw</icon>
     <menu>

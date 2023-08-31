@@ -88,6 +88,15 @@ class Pessoa extends TRecord
     }
 
     /**
+     * Method getBanners
+     */
+    public function getBanners()
+    {
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('pessoa_id', '=', $this->id));
+        return Banner::getObjects( $criteria );
+    }
+    /**
      * Method getContas
      */
     public function getContas()
@@ -140,6 +149,32 @@ class Pessoa extends TRecord
         $criteria = new TCriteria;
         $criteria->add(new TFilter('pessoa_id', '=', $this->id));
         return PessoaGrupo::getObjects( $criteria );
+    }
+
+    public function set_banner_pessoa_to_string($banner_pessoa_to_string)
+    {
+        if(is_array($banner_pessoa_to_string))
+        {
+            $values = Pessoa::where('id', 'in', $banner_pessoa_to_string)->getIndexedArray('nome', 'nome');
+            $this->banner_pessoa_to_string = implode(', ', $values);
+        }
+        else
+        {
+            $this->banner_pessoa_to_string = $banner_pessoa_to_string;
+        }
+
+        $this->vdata['banner_pessoa_to_string'] = $this->banner_pessoa_to_string;
+    }
+
+    public function get_banner_pessoa_to_string()
+    {
+        if(!empty($this->banner_pessoa_to_string))
+        {
+            return $this->banner_pessoa_to_string;
+        }
+    
+        $values = Banner::where('pessoa_id', '=', $this->id)->getIndexedArray('pessoa_id','{pessoa->nome}');
+        return implode(', ', $values);
     }
 
     public function set_conta_tipo_conta_to_string($conta_tipo_conta_to_string)
