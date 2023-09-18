@@ -150,6 +150,15 @@ class Pessoa extends TRecord
         $criteria->add(new TFilter('pessoa_id', '=', $this->id));
         return PessoaGrupo::getObjects( $criteria );
     }
+    /**
+     * Method getItemBannerPostagems
+     */
+    public function getItemBannerPostagems()
+    {
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('pessoa_id', '=', $this->id));
+        return ItemBannerPostagem::getObjects( $criteria );
+    }
 
     public function set_banner_pessoa_to_string($banner_pessoa_to_string)
     {
@@ -590,6 +599,84 @@ class Pessoa extends TRecord
         }
     
         $values = PessoaGrupo::where('pessoa_id', '=', $this->id)->getIndexedArray('grupo_pessoa_id','{grupo_pessoa->nome}');
+        return implode(', ', $values);
+    }
+
+    public function set_item_banner_postagem_tipo_postagem_to_string($item_banner_postagem_tipo_postagem_to_string)
+    {
+        if(is_array($item_banner_postagem_tipo_postagem_to_string))
+        {
+            $values = TipoPostagem::where('id', 'in', $item_banner_postagem_tipo_postagem_to_string)->getIndexedArray('id', 'id');
+            $this->item_banner_postagem_tipo_postagem_to_string = implode(', ', $values);
+        }
+        else
+        {
+            $this->item_banner_postagem_tipo_postagem_to_string = $item_banner_postagem_tipo_postagem_to_string;
+        }
+
+        $this->vdata['item_banner_postagem_tipo_postagem_to_string'] = $this->item_banner_postagem_tipo_postagem_to_string;
+    }
+
+    public function get_item_banner_postagem_tipo_postagem_to_string()
+    {
+        if(!empty($this->item_banner_postagem_tipo_postagem_to_string))
+        {
+            return $this->item_banner_postagem_tipo_postagem_to_string;
+        }
+    
+        $values = ItemBannerPostagem::where('pessoa_id', '=', $this->id)->getIndexedArray('tipo_postagem_id','{tipo_postagem->id}');
+        return implode(', ', $values);
+    }
+
+    public function set_item_banner_postagem_banner_to_string($item_banner_postagem_banner_to_string)
+    {
+        if(is_array($item_banner_postagem_banner_to_string))
+        {
+            $values = Banner::where('id', 'in', $item_banner_postagem_banner_to_string)->getIndexedArray('id', 'id');
+            $this->item_banner_postagem_banner_to_string = implode(', ', $values);
+        }
+        else
+        {
+            $this->item_banner_postagem_banner_to_string = $item_banner_postagem_banner_to_string;
+        }
+
+        $this->vdata['item_banner_postagem_banner_to_string'] = $this->item_banner_postagem_banner_to_string;
+    }
+
+    public function get_item_banner_postagem_banner_to_string()
+    {
+        if(!empty($this->item_banner_postagem_banner_to_string))
+        {
+            return $this->item_banner_postagem_banner_to_string;
+        }
+    
+        $values = ItemBannerPostagem::where('pessoa_id', '=', $this->id)->getIndexedArray('banner_id','{banner->id}');
+        return implode(', ', $values);
+    }
+
+    public function set_item_banner_postagem_pessoa_to_string($item_banner_postagem_pessoa_to_string)
+    {
+        if(is_array($item_banner_postagem_pessoa_to_string))
+        {
+            $values = Pessoa::where('id', 'in', $item_banner_postagem_pessoa_to_string)->getIndexedArray('nome', 'nome');
+            $this->item_banner_postagem_pessoa_to_string = implode(', ', $values);
+        }
+        else
+        {
+            $this->item_banner_postagem_pessoa_to_string = $item_banner_postagem_pessoa_to_string;
+        }
+
+        $this->vdata['item_banner_postagem_pessoa_to_string'] = $this->item_banner_postagem_pessoa_to_string;
+    }
+
+    public function get_item_banner_postagem_pessoa_to_string()
+    {
+        if(!empty($this->item_banner_postagem_pessoa_to_string))
+        {
+            return $this->item_banner_postagem_pessoa_to_string;
+        }
+    
+        $values = ItemBannerPostagem::where('pessoa_id', '=', $this->id)->getIndexedArray('pessoa_id','{pessoa->nome}');
         return implode(', ', $values);
     }
 

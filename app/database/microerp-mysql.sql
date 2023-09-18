@@ -13,13 +13,14 @@ CREATE TABLE banner(
       `pessoa_id` int   , 
       `foto` text   , 
       `descricao` text   , 
+      `valor_total` double   , 
       `status` text   , 
       `longitude` double   , 
       `latitude` double   , 
       `obs` text   , 
       `mes` varchar  (2)   , 
       `ano` varchar  (4)   , 
-      `mes_ano` varchar  (6)   , 
+      `mes_ano` varchar  (8)   , 
       `created_at` datetime   , 
       `update_at` datetime   , 
       `delete_at` datetime   , 
@@ -95,6 +96,8 @@ CREATE TABLE item_banner_postagem(
       `id`  INT  AUTO_INCREMENT    NOT NULL  , 
       `tipo_postagem_id` int   NOT NULL  , 
       `banner_id` int   NOT NULL  , 
+      `pessoa_id` int   , 
+      `valor` double   , 
       `data_inicio` datetime   , 
       `data_fim` datetime   , 
       `foto` text   , 
@@ -300,6 +303,7 @@ ALTER TABLE conta ADD CONSTRAINT fk_conta_4 FOREIGN KEY (pessoa_id) references p
 ALTER TABLE conta ADD CONSTRAINT fk_conta_5 FOREIGN KEY (ordem_servico_id) references ordem_servico(id); 
 ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_1 FOREIGN KEY (tipo_postagem_id) references tipo_postagem(id); 
 ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_2 FOREIGN KEY (banner_id) references banner(id); 
+ALTER TABLE item_banner_postagem ADD CONSTRAINT fk_item_banner_postagem_3 FOREIGN KEY (pessoa_id) references pessoa(id); 
 ALTER TABLE ordem_servico ADD CONSTRAINT fk_ordem_servico_1 FOREIGN KEY (cliente_id) references pessoa(id); 
 ALTER TABLE ordem_servico_atendimento ADD CONSTRAINT fk_ordem_servico_atendimento_2 FOREIGN KEY (ordem_servico_id) references ordem_servico(id); 
 ALTER TABLE ordem_servico_atendimento ADD CONSTRAINT fk_ordem_servico_atendimento_3 FOREIGN KEY (solucao_id) references solucao(id); 

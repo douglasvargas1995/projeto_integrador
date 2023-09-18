@@ -87,6 +87,32 @@ class TipoPostagem extends TRecord
         return implode(', ', $values);
     }
 
+    public function set_item_banner_postagem_pessoa_to_string($item_banner_postagem_pessoa_to_string)
+    {
+        if(is_array($item_banner_postagem_pessoa_to_string))
+        {
+            $values = Pessoa::where('id', 'in', $item_banner_postagem_pessoa_to_string)->getIndexedArray('nome', 'nome');
+            $this->item_banner_postagem_pessoa_to_string = implode(', ', $values);
+        }
+        else
+        {
+            $this->item_banner_postagem_pessoa_to_string = $item_banner_postagem_pessoa_to_string;
+        }
+
+        $this->vdata['item_banner_postagem_pessoa_to_string'] = $this->item_banner_postagem_pessoa_to_string;
+    }
+
+    public function get_item_banner_postagem_pessoa_to_string()
+    {
+        if(!empty($this->item_banner_postagem_pessoa_to_string))
+        {
+            return $this->item_banner_postagem_pessoa_to_string;
+        }
+    
+        $values = ItemBannerPostagem::where('tipo_postagem_id', '=', $this->id)->getIndexedArray('pessoa_id','{pessoa->nome}');
+        return implode(', ', $values);
+    }
+
     
 }
 

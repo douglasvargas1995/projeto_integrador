@@ -44,22 +44,24 @@ class BannerForm extends TPage
         $item_banner_postagem_banner_tipo_postagem_id = new TDBCombo('item_banner_postagem_banner_tipo_postagem_id[]', 'microerp', 'TipoPostagem', 'id', '{descricao}','id asc'  );
         $item_banner_postagem_banner_data_inicio = new TDateTime('item_banner_postagem_banner_data_inicio[]');
         $item_banner_postagem_banner_data_fim = new TDateTime('item_banner_postagem_banner_data_fim[]');
-        $this->fieldList_64e3f439fff35 = new TFieldList();
+        $item_banner_postagem_banner_valor = new TNumeric('item_banner_postagem_banner_valor[]', '2', ',', '.' );
+        $this->fieldList_6502521f54c1e = new TFieldList();
         $obs = new TText('obs');
 
-        $this->fieldList_64e3f439fff35->addField(null, $item_banner_postagem_banner_id, []);
-        $this->fieldList_64e3f439fff35->addField(null, $item_banner_postagem_banner___row__id, ['uniqid' => true]);
-        $this->fieldList_64e3f439fff35->addField(null, $item_banner_postagem_banner___row__data, []);
-        $this->fieldList_64e3f439fff35->addField(new TLabel("Tipo", null, '14px', null), $item_banner_postagem_banner_tipo_postagem_id, ['width' => '35%']);
-        $this->fieldList_64e3f439fff35->addField(new TLabel("Início", null, '14px', null), $item_banner_postagem_banner_data_inicio, ['width' => '35%']);
-        $this->fieldList_64e3f439fff35->addField(new TLabel("Fim", null, '14px', null), $item_banner_postagem_banner_data_fim, ['width' => '35%']);
+        $this->fieldList_6502521f54c1e->addField(null, $item_banner_postagem_banner_id, []);
+        $this->fieldList_6502521f54c1e->addField(null, $item_banner_postagem_banner___row__id, ['uniqid' => true]);
+        $this->fieldList_6502521f54c1e->addField(null, $item_banner_postagem_banner___row__data, []);
+        $this->fieldList_6502521f54c1e->addField(new TLabel("Tipo", null, '14px', null), $item_banner_postagem_banner_tipo_postagem_id, ['width' => '25%']);
+        $this->fieldList_6502521f54c1e->addField(new TLabel("Data início", null, '14px', null), $item_banner_postagem_banner_data_inicio, ['width' => '25%']);
+        $this->fieldList_6502521f54c1e->addField(new TLabel("Data fim", null, '14px', null), $item_banner_postagem_banner_data_fim, ['width' => '25%']);
+        $this->fieldList_6502521f54c1e->addField(new TLabel("Valor", null, '14px', null), $item_banner_postagem_banner_valor, ['width' => '25%']);
 
-        $this->fieldList_64e3f439fff35->width = '100%';
-        $this->fieldList_64e3f439fff35->setFieldPrefix('item_banner_postagem_banner');
-        $this->fieldList_64e3f439fff35->name = 'fieldList_64e3f439fff35';
-        $this->fieldList_64e3f439fff35->class .= ' table-responsive';
+        $this->fieldList_6502521f54c1e->width = '100%';
+        $this->fieldList_6502521f54c1e->setFieldPrefix('item_banner_postagem_banner');
+        $this->fieldList_6502521f54c1e->name = 'fieldList_6502521f54c1e';
+        $this->fieldList_6502521f54c1e->class .= ' table-responsive';
 
-        $this->criteria_fieldList_64e3f439fff35 = new TCriteria();
+        $this->criteria_fieldList_6502521f54c1e = new TCriteria();
 
         $this->form->addField($item_banner_postagem_banner_id);
         $this->form->addField($item_banner_postagem_banner___row__id);
@@ -67,14 +69,16 @@ class BannerForm extends TPage
         $this->form->addField($item_banner_postagem_banner_tipo_postagem_id);
         $this->form->addField($item_banner_postagem_banner_data_inicio);
         $this->form->addField($item_banner_postagem_banner_data_fim);
+        $this->form->addField($item_banner_postagem_banner_valor);
 
-        $this->fieldList_64e3f439fff35->setRemoveAction(null, 'fas:times #dd5a43', "Excluír");
+        $this->fieldList_6502521f54c1e->setRemoveAction(null, 'fas:times #dd5a43', "Excluír");
 
         $pessoa_id->addValidation("Pessoa", new TRequiredValidator()); 
         $descricao->addValidation("Descrição", new TRequiredValidator()); 
         $status->addValidation("Status", new TRequiredValidator()); 
         $longitude->addValidation("Latitude", new TRequiredValidator()); 
         $latitude->addValidation("Longitude", new TRequiredValidator()); 
+        $item_banner_postagem_banner_tipo_postagem_id->addValidation("Tipo postagem id", new TRequiredListValidator()); 
 
         $id->setEditable(false);
         $foto->enableFileHandling();
@@ -99,9 +103,10 @@ class BannerForm extends TPage
         $pessoa_id->setSize('100%');
         $descricao->setSize('100%');
         $longitude->setSize('100%');
-        $item_banner_postagem_banner_data_fim->setSize(150);
-        $item_banner_postagem_banner_data_inicio->setSize(150);
-        $item_banner_postagem_banner_tipo_postagem_id->setSize('100%');
+        $item_banner_postagem_banner_valor->setSize(100);
+        $item_banner_postagem_banner_data_fim->setSize(100);
+        $item_banner_postagem_banner_data_inicio->setSize(100);
+        $item_banner_postagem_banner_tipo_postagem_id->setSize(100);
 
 
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Pessoa:", null, '14px', null, '100%'),$pessoa_id]);
@@ -118,7 +123,7 @@ class BannerForm extends TPage
 
         $row5 = $this->form->addContent([new TFormSeparator("", '#333', '18', '#eee')]);
         $row6 = $this->form->addContent([new TFormSeparator("Postagens", '#333', '18', '#eee')]);
-        $row7 = $this->form->addFields([$this->fieldList_64e3f439fff35]);
+        $row7 = $this->form->addFields([$this->fieldList_6502521f54c1e]);
         $row7->layout = [' col-sm-12'];
 
         $row8 = $this->form->addFields([new TLabel("Obs:", null, '14px', null, '100%'),$obs]);
@@ -165,7 +170,38 @@ class BannerForm extends TPage
             $data = $this->form->getData(); // get form data as array
             $object->fromArray( (array) $data); // load the object with data
 
-            $foto_dir = 'app/fotos/banner'; 
+            $foto_dir = 'app/fotos/banner';  
+
+            $object->valor_total = 0;
+
+            TTransaction::open('microerp');
+            $obj = Pessoa::find($data->pessoa_id);
+            TTransaction::close();
+
+            if(!$data->id)
+            {
+                $object->mes = date('m');
+                $object->ano = date('Y');
+                $object->mes_ano = date('m/Y');
+
+                if($obj->email)
+                {
+                    $tos     = $obj->email;
+                    $subject = "O Banner id #{$data->id} foi criado.";
+                    $body    = "Latitude : {$data->latitude}/nLongitude : {$data->longitude}";
+                    MailService::send($tos, $subject, $body);
+                }
+
+            }else
+            {
+                if($obj->email)
+                {
+                    $tos     = $obj->email;
+                    $subject = "O Banner id #{$data->id} foi editado.";
+                    $body    = "Latitude : {$data->latitude}/nLongitude : {$data->longitude}";
+                    MailService::send($tos, $subject, $body);
+                }
+            }
 
             $object->store(); // save the object 
 
@@ -177,11 +213,13 @@ class BannerForm extends TPage
                 $loadPageParam['target_container'] = $param['target_container'];
             }
 
-            $item_banner_postagem_banner_items = $this->storeItems('ItemBannerPostagem', 'banner_id', $object, $this->fieldList_64e3f439fff35, function($masterObject, $detailObject){ 
+            $item_banner_postagem_banner_items = $this->storeItems('ItemBannerPostagem', 'banner_id', $object, $this->fieldList_6502521f54c1e, function($masterObject, $detailObject){ 
 
-                //code here
+            $masterObject->valor_total += $detailObject->valor;
 
-            }, $this->criteria_fieldList_64e3f439fff35); 
+            }, $this->criteria_fieldList_6502521f54c1e); 
+
+            $object->store();
 
             // get the generated {PRIMARY_KEY}
             $data->id = $object->id; 
@@ -217,11 +255,11 @@ class BannerForm extends TPage
 
                 $object = new Banner($key); // instantiates the Active Record 
 
-                $this->fieldList_64e3f439fff35_items = $this->loadItems('ItemBannerPostagem', 'banner_id', $object, $this->fieldList_64e3f439fff35, function($masterObject, $detailObject, $objectItems){ 
+                $this->fieldList_6502521f54c1e_items = $this->loadItems('ItemBannerPostagem', 'banner_id', $object, $this->fieldList_6502521f54c1e, function($masterObject, $detailObject, $objectItems){ 
 
                     //code here
 
-                }, $this->criteria_fieldList_64e3f439fff35); 
+                }, $this->criteria_fieldList_6502521f54c1e); 
 
                 $this->form->setData($object); // fill the form 
 
@@ -247,19 +285,19 @@ class BannerForm extends TPage
     {
         $this->form->clear(true);
 
-        $this->fieldList_64e3f439fff35->addHeader();
-        $this->fieldList_64e3f439fff35->addDetail( new stdClass );
+        $this->fieldList_6502521f54c1e->addHeader();
+        $this->fieldList_6502521f54c1e->addDetail( new stdClass );
 
-        $this->fieldList_64e3f439fff35->addCloneAction(null, 'fas:plus #69aa46', "Clonar");
+        $this->fieldList_6502521f54c1e->addCloneAction(null, 'fas:plus #69aa46', "Clonar");
 
     }
 
     public function onShow($param = null)
     {
-        $this->fieldList_64e3f439fff35->addHeader();
-        $this->fieldList_64e3f439fff35->addDetail( new stdClass );
+        $this->fieldList_6502521f54c1e->addHeader();
+        $this->fieldList_6502521f54c1e->addDetail( new stdClass );
 
-        $this->fieldList_64e3f439fff35->addCloneAction(null, 'fas:plus #69aa46', "Clonar");
+        $this->fieldList_6502521f54c1e->addCloneAction(null, 'fas:plus #69aa46', "Clonar");
 
     } 
 

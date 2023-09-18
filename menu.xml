@@ -33,10 +33,6 @@
         <icon>far:circle fa-fw </icon>
         <action>OrdemServicoList#method=onShow</action>
       </menuitem>
-      <menuitem label="Dashboard">
-        <icon>far:circle fa-fw </icon>
-        <action>DashboardOS#method=onShow</action>
-      </menuitem>
       <menuitem label="Configurações">
         <icon>fas:cogs fa-fw </icon>
         <menu>
@@ -101,6 +97,14 @@
   <menuitem label="Banner">
     <icon>fas:desktop fa-fw </icon>
     <menu>
+      <menuitem label="Dashboard Banners">
+        <icon>far:circle fa-fw </icon>
+        <action>DashboardBanners#method=onShow</action>
+      </menuitem>
+      <menuitem label="Banners">
+        <icon>far:circle fa-fw </icon>
+        <action>BannerHeaderList#method=onShow</action>
+      </menuitem>
       <menuitem label="Configurações">
         <icon>fas:cogs fa-fw </icon>
         <menu>
@@ -109,10 +113,6 @@
             <action>TipoPostagemHeaderList#method=onShow</action>
           </menuitem>
         </menu>
-      </menuitem>
-      <menuitem label="Banners">
-        <icon>far:circle fa-fw </icon>
-        <action>BannerHeaderList#method=onShow</action>
       </menuitem>
       <menuitem label="Busca com Cards">
         <icon>far:circle fa-fw </icon>
