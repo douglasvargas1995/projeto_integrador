@@ -14,7 +14,8 @@ class BuilderCustomCssService
     
         $ini = AdiantiApplicationConfig::get();
         $token = $ini['general']['token'];
-        $url = "https://manager.adiantibuilder.com.br/ws.php?method=editCustomCss&token={$token}";
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?method=editCustomCss&token={$token}";
         
         if (BuilderPageService::checkExternalUrl($url) !== 200)
         {

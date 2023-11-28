@@ -55,7 +55,8 @@ class BuilderService
         
         $ini = AdiantiApplicationConfig::get();
         $token = $ini['general']['token'];
-        $url = "https://manager.adiantibuilder.com.br/ws.php?method=getInstructionsUpdateLib&token={$token}";
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?method=getInstructionsUpdateLib&token={$token}";
 
         $content = file_get_contents($url, false, stream_context_create(['ssl' => ['verify_peer' => false, 'verify_peer_name' => false]]));
         $response = json_decode($content, true);        
@@ -80,7 +81,9 @@ class BuilderService
         
         $ini = AdiantiApplicationConfig::get();
         $token = $ini['general']['token'];
-        $url = "https://manager.adiantibuilder.com.br/ws.php?method=downloadFilesUploadLib&token={$token}&targz=1";
+        $app_url = $ini['builder']['app_url'];
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?method=downloadFilesUploadLib&token={$token}&targz=1";
 
         $content = file_get_contents($url, false, stream_context_create(['ssl' => ['verify_peer' => false, 'verify_peer_name' => false]]));
         
@@ -95,17 +98,29 @@ class BuilderService
 
             $content = trim($content);
             $folder_name = str_replace('code/', '', str_replace('.tar.gz', '', $content) );
-            $zipContent = @file_get_contents('https://app.adiantibuilder.com.br/' . $content);
+            $zipContent = file_get_contents("{$app_url}/{$content}", false, stream_context_create(['ssl' => ['verify_peer' => false, 'verify_peer_name' => false]]));
             file_put_contents('tmp/update_lib.tar.gz', $zipContent);
             chmod('tmp/update_lib.tar.gz', 0777);
             exec('tar -xzf tmp/update_lib.tar.gz -C tmp/');
             exec('rm -rf tmp/update_lib.tar.gz');
+            
+            if(file_exists("tmp/update_lib"))
+            {
+                exec('rm -rf tmp/update_lib');
+            }
+
+            if(file_exists("tmp/update_lib"))
+            {
+                throw new Exception('Remova a pasta tmp/update_lib para continuar a atualização');
+            }
+
             exec("mv {$folder_name} tmp/update_lib");
 
             if (! file_exists("tmp/update_lib/"))
             {
                 throw new Exception(_bt('Permission denied, could not copy the update folder files'));
             }
+            exec('chmod 775 tmp/update_lib/* -rf');
 
             return "tmp/update_lib/";
         }

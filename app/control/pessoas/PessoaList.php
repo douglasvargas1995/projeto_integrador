@@ -66,8 +66,6 @@ class PessoaList extends TPage
         $id_busca_header->setSize('100%');
         $tipo_cliente_id_busca_header->setSize('100%');
 
-
-
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Tipo do cliente:", null, '14px', null, '100%'),$tipo_cliente_id],[new TLabel("Nome:", null, '14px', null, '100%'),$nome]);
         $row1->layout = [' col-sm-4',' col-sm-4',' col-sm-4'];
 
@@ -683,6 +681,7 @@ class PessoaList extends TPage
             $class = get_class($this);
             $onReloadParam = ['offset' => 0, 'first_page' => 1];
             AdiantiCoreApplication::loadPage($class, 'onReload', $onReloadParam);
+            TScript::create('$(".select2").prev().select2("close");');
         }
         else
         {

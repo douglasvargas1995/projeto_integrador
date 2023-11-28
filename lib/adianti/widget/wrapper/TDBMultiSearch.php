@@ -203,33 +203,36 @@ class TDBMultiSearch extends TMultiSearch
                     $values = explode($this->separator, $values);
                 }
                 
-                TTransaction::openFake($this->database);
-                foreach ($values as $value)
+                if(is_array($values))
                 {
-                    if ($value)
+                    TTransaction::openFake($this->database);
+                    foreach ($values as $value)
                     {
-                        $model = $this->model;
-                        
-                        $pk = constant("{$model}::PRIMARYKEY");
-                        
-                        if ($pk === $this->key) // key is the primary key (default)
+                        if ($value)
                         {
-                            // use find because it uses cache
-                            $object = $model::find( $value );
-                        }
-                        else // key is an alternative key (uses where->first)
-                        {
-                            $object = $model::where( $this->key, '=', $value )->first();
-                        }
-                        
-                        if ($object)
-                        {
-                            $description = $object->render($this->mask);
-                            $items[$value] = $description;
+                            $model = $this->model;
+                            
+                            $pk = constant("{$model}::PRIMARYKEY");
+                            
+                            if ($pk === $this->key) // key is the primary key (default)
+                            {
+                                // use find because it uses cache
+                                $object = $model::find( $value );
+                            }
+                            else // key is an alternative key (uses where->first)
+                            {
+                                $object = $model::where( $this->key, '=', $value )->first();
+                            }
+                            
+                            if ($object)
+                            {
+                                $description = $object->render($this->mask);
+                                $items[$value] = $description;
+                            }
                         }
                     }
+                    TTransaction::close();
                 }
-                TTransaction::close();
                 
                 parent::addItems( $items );
             }

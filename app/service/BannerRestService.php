@@ -4,7 +4,7 @@ class BannerRestService extends AdiantiRecordService
 {
     const DATABASE      = 'microerp';
     const ACTIVE_RECORD = 'Banner';
-    const ATTRIBUTES    = ['ano','created_at','delete_at','descricao','foto','id','latitude','longitude','mes','mes_ano','obs','pessoa_id','status','update_at'];
+    const ATTRIBUTES    = ['obs','ano','created_at','delete_at','descricao','foto','id','latitude','longitude','mes','mes_ano','obs','pessoa_id','status','update_at'];
     
     /**
      * load($param)

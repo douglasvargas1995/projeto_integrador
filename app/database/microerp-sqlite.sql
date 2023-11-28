@@ -112,6 +112,7 @@ CREATE TABLE item_banner_postagem(
       data_fim datetime   , 
       foto text   , 
       obs text   , 
+      status text   , 
  PRIMARY KEY (id),
 FOREIGN KEY(tipo_postagem_id) REFERENCES tipo_postagem(id),
 FOREIGN KEY(banner_id) REFERENCES banner(id),

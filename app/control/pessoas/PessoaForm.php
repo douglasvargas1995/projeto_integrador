@@ -141,8 +141,6 @@ class PessoaForm extends TPage
         $pessoa_endereco_pessoa_cidade_estado_id->setSize('100%');
         $pessoa_endereco_pessoa_cep->setSize('calc(100% - 120px)');
 
-
-
         $button_adicionar_pessoa_contato_pessoa->id = '62a5ec2b0b75d';
         $button_adicionar_pessoa_endereco_pessoa->id = '62a5eff10b765';
 
@@ -953,6 +951,11 @@ class PessoaForm extends TPage
         }
         TForm::sendData(self::$formName, $obj);
     }  
+
+    public static function getFormName()
+    {
+        return self::$formName;
+    }
 
 }
 

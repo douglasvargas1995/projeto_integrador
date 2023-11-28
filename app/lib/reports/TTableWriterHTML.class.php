@@ -9,12 +9,12 @@
  */
 class TTableWriterHTML implements ITableWriter
 {
-    private $styles;
-    private $widths;
-    private $colcounter;
-    private $table;
-    private $currentRow;
-    private $footerCallback;
+    protected $styles;
+    protected $widths;
+    protected $colcounter;
+    protected $table;
+    protected $currentRow;
+    protected $footerCallback;
     
     /**
      * Constructor
@@ -25,7 +25,6 @@ class TTableWriterHTML implements ITableWriter
         // armazena as larguras
         $this->widths = $widths;
         // inicializa atributos
-        $this->tables = array();
         $this->styles = array();
         
         // cria uma nova tabela

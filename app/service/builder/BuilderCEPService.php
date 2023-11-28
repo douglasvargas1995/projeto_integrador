@@ -2,22 +2,23 @@
 
 class BuilderCEPService
 {
-    const ENDPOINT = 'https://services.adiantibuilder.com.br/cep/api/v1/';
     
     public static function getUrl($cep)
     {
+        $ini = AdiantiApplicationConfig::get();
+
         $cep = str_replace(['-','.'], ['', ''], $cep);
 
-        return self::ENDPOINT . $cep;
+        return "{$ini['builder']['services_url']}/cep/api/v1/{$cep}";
     }
 
     public static function get($cep)
     {
         $url = self::getUrl($cep);
 
-        $ini = parse_ini_file('app/config/application.ini');
+        $ini = AdiantiApplicationConfig::get();
         
-        $url .= '/' . $ini['token'];
+        $url .= '/' . $ini['general']['token'];
 
         return BuilderHttpClientService::get($url);
     }

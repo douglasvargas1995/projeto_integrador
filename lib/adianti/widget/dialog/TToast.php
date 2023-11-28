@@ -2,6 +2,7 @@
 namespace Adianti\Widget\Dialog;
 
 use Adianti\Core\AdiantiCoreTranslator;
+use Adianti\Util\AdiantiStringConversion;
 use Adianti\Widget\Base\TElement;
 use Adianti\Widget\Base\TScript;
 
@@ -27,7 +28,8 @@ class TToast
     {
         if (in_array($type, ['show', 'info', 'success', 'warning', 'error']))
         {
-            $message64 = base64_encode(utf8_decode($message));
+            
+            $message64 = base64_encode($message);
             TScript::create("__adianti_show_toast64('{$type}', '{$message64}', '{$place}', '{$icon}')");
         }
         else

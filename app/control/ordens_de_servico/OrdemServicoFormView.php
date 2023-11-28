@@ -41,10 +41,9 @@ class OrdemServicoFormView extends TPage
         $label12 = new TLabel("Cliente:", '', '14px', 'B', '100%');
         $text2 = new TTextDisplay($ordem_servico->cliente->nome, '', '16px', '');
         $label14 = new TLabel("Valor total:", '', '14px', 'B', '100%');
-        $text7 = new TTextDisplay(number_format($ordem_servico->valor_total, '2', ',', '.'), '', '16px', '');
+        $text7 = new TTextDisplay(number_format((double)$ordem_servico->valor_total, '2', ',', '.'), '', '16px', '');
         $label16 = new TLabel("Descrição:", '', '14px', 'B', '100%');
         $text3 = new TTextDisplay($ordem_servico->descricao, '', '16px', '');
-
 
 
         $row1 = $this->form->addFields([$label2,$text1],[$label6,$text4],[$label8,$text5],[$label10,$text6]);

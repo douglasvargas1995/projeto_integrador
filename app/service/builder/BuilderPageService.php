@@ -12,7 +12,8 @@ class BuilderPageService
         $ini = AdiantiApplicationConfig::get();
         $token = $ini['general']['token'];
         $controller = $param['controller'];
-        $url = "https://manager.adiantibuilder.com.br/ws.php?method=editPage&controller={$controller}&token={$token}";
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?method=editPage&controller={$controller}&token={$token}";
         
         if (self::checkExternalUrl($url) !== 200)
         {
@@ -33,7 +34,8 @@ class BuilderPageService
         
         $ini = AdiantiApplicationConfig::get();
         $token = $ini['general']['token'];
-        $url = "https://manager.adiantibuilder.com.br/ws.php?method=getAllCodes&token={$token}";
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?method=getAllCodes&token={$token}";
         
         if (self::checkExternalUrl($url) !== 200)
         {
@@ -67,7 +69,8 @@ class BuilderPageService
         
         $ini = AdiantiApplicationConfig::get();
         $token = $ini['general']['token'];
-        $url = "https://manager.adiantibuilder.com.br/ws.php?method=getMenus&token={$token}";
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?method=getMenus&token={$token}";
         
         if (self::checkExternalUrl($url) !== 200)
         {
@@ -101,7 +104,8 @@ class BuilderPageService
         
         $ini = AdiantiApplicationConfig::get();
         $token = $ini['general']['token'];
-        $url = "https://manager.adiantibuilder.com.br/ws.php?method=getPermissionsV1&token={$token}";
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?method=getPermissionsV1&token={$token}";
         
         if (self::checkExternalUrl($url) !== 200)
         {

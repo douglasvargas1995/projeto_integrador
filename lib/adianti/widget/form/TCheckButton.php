@@ -21,6 +21,7 @@ class TCheckButton extends TField implements AdiantiWidgetInterface
     private $indexValue;
     private $useSwitch;
     private $labelClass;
+    private $inactiveIndexValue;
     
     /**
      * Class Constructor
@@ -50,6 +51,32 @@ class TCheckButton extends TField implements AdiantiWidgetInterface
     public function setIndexValue($index)
     {        
         $this->indexValue = $index;
+    }
+
+    /**
+     * Define the index value for check button when inactive
+     * @inactiveIndexValue Inactive index value
+     */
+    public function setInactiveIndexValue($inactiveIndexValue)
+    {        
+        $this->inactiveIndexValue = $inactiveIndexValue;
+    }
+
+    /**
+     * Return the post data
+     */
+    public function getPostData()
+    {
+        if (isset($_POST[$this->name]))
+        {
+            return $_POST[$this->name];
+        }
+        elseif($this->inactiveIndexValue)
+        {
+            return $this->inactiveIndexValue;
+        }
+
+        return '';
     }
     
     /**

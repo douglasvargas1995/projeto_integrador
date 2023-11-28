@@ -2,22 +2,23 @@
 
 class BuilderCNPJService
 {
-    const ENDPOINT = 'https://services.adiantibuilder.com.br/cnpj/api/v1/';
-    
     public static function getUrl($cnpj)
     {
         $cnpj = str_replace(['-','.', '/'], ['', '', ''], $cnpj);
+        
+        $ini = AdiantiApplicationConfig::get();
+        $url = $ini['builder']['services_url'];
 
-        return self::ENDPOINT . $cnpj;
+        return "{$url}/cnpj/api/v1/{$cnpj}";
     }
 
     public static function get($cnpj)
     {
         $url = self::getUrl($cnpj);
 
-        $ini = parse_ini_file('app/config/application.ini');
+        $ini = AdiantiApplicationConfig::get();
         
-        $url .= '/' . $ini['token'];
+        $url .= '/' . $ini['general']['token'];
 
         return BuilderHttpClientService::get($url);
     }
@@ -26,11 +27,9 @@ class BuilderCNPJService
     {
         $cnpj = str_replace(['-','.', '/'], ['', '', ''], $cnpj);
 
-        $url = self::ENDPOINT .'full/' .$cnpj;
-
-        $ini = parse_ini_file('app/config/application.ini');
+        $ini = AdiantiApplicationConfig::get();
         
-        $url .= '/' . $ini['token'];
+        $url = "{$ini['builder']['services_url']}/cnpj/api/v1/full/{$cnpj}/{$ini['general']['token']}";
 
         return BuilderHttpClientService::get($url);
     }

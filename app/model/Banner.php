@@ -5,6 +5,7 @@ class Banner extends TRecord
     const TABLENAME  = 'banner';
     const PRIMARYKEY = 'id';
     const IDPOLICY   =  'serial'; // {max, serial}
+    const CACHECONTROL  = 'TAPCache';
 
     const DELETEDAT  = 'delete_at';
     const CREATEDAT  = 'created_at';
@@ -14,6 +15,7 @@ class Banner extends TRecord
 
     
 
+    use SystemChangeLogTrait;
     /**
      * Constructor method
      */

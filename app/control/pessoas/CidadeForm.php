@@ -47,7 +47,6 @@ class CidadeForm extends TPage
         $estado_id->setSize('100%');
         $codigo_ibge->setSize('100%');
 
-
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Estado:", '#ff0000', '14px', null, '100%'),$estado_id]);
         $row1->layout = ['col-sm-6','col-sm-6'];
 
@@ -166,6 +165,11 @@ class CidadeForm extends TPage
     {
 
     } 
+
+    public static function getFormName()
+    {
+        return self::$formName;
+    }
 
 }
 

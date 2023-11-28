@@ -105,6 +105,10 @@
         <icon>far:circle fa-fw </icon>
         <action>BannerHeaderList#method=onShow</action>
       </menuitem>
+      <menuitem label="Autorização auditoria">
+        <icon>far:circle fa-fw </icon>
+        <action>ItemBannerPostagemList#method=onShow</action>
+      </menuitem>
       <menuitem label="Configurações">
         <icon>fas:cogs fa-fw </icon>
         <menu>

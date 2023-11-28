@@ -42,6 +42,8 @@ class TFieldList extends TTable
     private $totals;
     private $total_functions;
     private $remove_enabled;
+    private $clone_enabled;
+    
     private $remove_icon;
     private $remove_title;
     private $field_prefix;
@@ -74,6 +76,7 @@ class TFieldList extends TTable
         $this->summarize = false;
         $this->total_functions = null;
         $this->remove_enabled = true;
+        $this->clone_enabled = true;
         $this->allow_post_empty = true;
     }
     
@@ -92,29 +95,38 @@ class TFieldList extends TTable
     {
         $data = [];
         
-        foreach($this->fields as $field)
+        if($this->fields)
         {
-            $field_name = $field->getName();
-            $name  = str_replace( ['[', ']'], ['', ''], $field->getName());
-            
-            $data[$name] = $field->getPostData();
+            foreach($this->fields as $field)
+            {
+                $field_name = $field->getName();
+                $name  = str_replace( ['[', ']'], ['', ''], $field->getName());
+                
+                $data[$name] = $field->getPostData();
+            }
         }
         
         $results = [];
         
-        foreach ($data as $name => $values)
+        if($data)
         {
-            $field_name = $name;
-            
-            if (!empty($this->field_prefix))
+            foreach ($data as $name => $values)
             {
-                $field_name = str_replace($this->field_prefix . '_', '', $field_name);
-            }
-            
-            foreach ($values as $row => $value)
-            {
-                $results[$row] = $results[$row] ?? new stdClass;
-                $results[$row]->$field_name = $value;
+                $field_name = $name;
+                
+                if (!empty($this->field_prefix))
+                {
+                    $field_name = str_replace($this->field_prefix . '_', '', $field_name);
+                }
+
+                if($values)
+                {
+                    foreach ($values as $row => $value)
+                    {
+                        $results[$row] = $results[$row] ?? new stdClass;
+                        $results[$row]->$field_name = $value;
+                    }
+                }
             }
         }
         
@@ -172,7 +184,31 @@ class TFieldList extends TTable
     {
         $this->remove_enabled = false;
     }
+
+    /**
+     * Get remove enabled
+     */
+    public function getRemoveEnabled()
+    {
+        return $this->remove_enabled;
+    }
+
+    /**
+     * Disable clone button
+     */
+    public function disableCloneButton()
+    {
+        $this->clone_enabled = false;
+    }
     
+    /**
+     * Get clone enabled
+     */
+    public function getCloneEnabled()
+    {
+        $this->clone_enabled = false;
+    }
+
     /**
      * Enable sorting
      */
@@ -641,7 +677,10 @@ class TFieldList extends TTable
         $add->add($icon ? new TImage($icon) : '<i class="fa fa-plus green"></i>');
         
         // add buttons in table
-        $row->addCell($add);
+        if($this->clone_enabled)
+        {
+            $row->addCell($add);
+        }
     }
     
     /**

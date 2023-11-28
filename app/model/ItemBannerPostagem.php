@@ -26,6 +26,7 @@ class ItemBannerPostagem extends TRecord
         parent::addAttribute('data_fim');
         parent::addAttribute('foto');
         parent::addAttribute('obs');
+        parent::addAttribute('status');
             
     }
 

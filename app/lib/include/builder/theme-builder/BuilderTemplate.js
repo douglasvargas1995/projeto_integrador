@@ -326,6 +326,11 @@ window.BuilderTemplate = ( function() {
             $('.adianti_tabs_container').css('height', '0px');
         }
 
+        if(typeof options.dialog_box_type != 'undefined' && options.dialog_box_type == 'sweetalert')
+        {
+            BuilderTemplate.enableSweetAlert();
+        }
+
         __adianti_set_name(options.application_name);
         __adianti_init_tabs(options.use_tabs, options.store_tabs, options.use_mdi_windows);
         __adianti_set_language(options.language);
@@ -417,6 +422,54 @@ window.BuilderTemplate = ( function() {
         }, 500);
     }
 
+    const enableSweetAlert = function()
+    {
+        __adianti_dialog = function ( options )
+        {
+            setTimeout( function() {
+                swal({
+                html: true,
+                title: options.title,
+                text: options.message,
+                type: options.type,
+                allowEscapeKey: (typeof options.callback == 'undefined'),
+                allowOutsideClick: (typeof options.callback == 'undefined')
+                },
+                function(){
+                    if (typeof options.callback != 'undefined') {
+                        options.callback();
+                    }
+                });
+            }, 100);
+        }
+
+        __adianti_question = function (title, message, callback_yes, callback_no, label_yes, label_no)
+        {
+            setTimeout( function() {
+                swal({
+                html: true,
+                title: title,
+                text: message,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: label_yes,
+                cancelButtonText: label_no
+                },
+                function(isConfirm){
+                if (isConfirm) {
+                    if (typeof callback_yes != 'undefined') {
+                        callback_yes();
+                    }
+                } else {
+                    if (typeof callback_no != 'undefined') {
+                        callback_no();
+                    }
+                }
+                });
+            }, 100);
+        }
+    }
+
     return {
         updateMessagesMenu: updateMessagesMenu,
         updateNotificationsMenu: updateNotificationsMenu,
@@ -429,7 +482,8 @@ window.BuilderTemplate = ( function() {
         processTheme: processTheme,
         changeStyle: changeStyle,
         defineTheme: defineTheme,
-        processFastDrop: processFastDrop
+        processFastDrop: processFastDrop,
+        enableSweetAlert: enableSweetAlert,
     };
 
 })();

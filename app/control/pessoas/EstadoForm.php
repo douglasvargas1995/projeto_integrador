@@ -47,7 +47,6 @@ class EstadoForm extends TPage
         $sigla->setSize('100%');
         $codigo_ibge->setSize('100%');
 
-
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Nome:", '#ff0000', '14px', null, '100%'),$nome]);
         $row1->layout = ['col-sm-6','col-sm-6'];
 
@@ -166,6 +165,11 @@ class EstadoForm extends TPage
     {
 
     } 
+
+    public static function getFormName()
+    {
+        return self::$formName;
+    }
 
 }
 

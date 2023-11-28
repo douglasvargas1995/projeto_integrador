@@ -54,8 +54,6 @@ class ProdutoForm extends TPage
         $obs->setSize('100%', 140);
         $tipo_produto_id->setSize('100%');
 
-
-
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[]);
         $row1->layout = ['col-sm-6','col-sm-6'];
 
@@ -183,6 +181,11 @@ class ProdutoForm extends TPage
     {
 
     } 
+
+    public static function getFormName()
+    {
+        return self::$formName;
+    }
 
 }
 

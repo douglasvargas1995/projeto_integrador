@@ -146,6 +146,7 @@ class AdiantiClassMap
         $classPath['TDropDown']                       = 'lib/adianti/widget/util/TDropDown.php';
         $classPath['TExceptionView']                  = 'lib/adianti/widget/util/TExceptionView.php';
         $classPath['TImage']                          = 'lib/adianti/widget/util/TImage.php';
+        $classPath['BImageCarousel']                  = 'lib/adianti/widget/util/BImageCarousel.php';
         $classPath['TSourceCode']                     = 'lib/adianti/widget/util/TSourceCode.php';
         $classPath['TTreeView']                       = 'lib/adianti/widget/util/TTreeView.php';
         $classPath['TXMLBreadCrumb']                  = 'lib/adianti/widget/util/TXMLBreadCrumb.php';

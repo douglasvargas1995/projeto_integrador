@@ -10,6 +10,7 @@ use Adianti\Database\TSqlSelect;
 use Adianti\Database\TSqlInsert;
 use Adianti\Database\TSqlUpdate;
 use Adianti\Database\TSqlDelete;
+use Adianti\Registry\TSession;
 
 use Math\Parser;
 use PDO;
@@ -340,6 +341,123 @@ abstract class TRecord implements IteratorAggregate
     }
     
     /**
+     * Returns the the name of the created by column
+     * @return A String containing the created by column
+     */
+    public function getCreatedByColumn()
+    {
+        // get the Active Record class name
+        $class = get_class($this);
+        
+        if (defined("{$class}::CREATED_BY"))
+        {
+            // returns the CREATED_BY Active Record class constant
+            return constant("{$class}::CREATED_BY");
+        }
+    }
+    
+    /**
+     * Returns the the name of the updated by column
+     * @return A String containing the updated by column
+     */
+    public function getUpdatedByColumn()
+    {
+        // get the Active Record class name
+        $class = get_class($this);
+        
+        if (defined("{$class}::UPDATED_BY"))
+        {
+            // returns the UPDATED_BY Active Record class constant
+            return constant("{$class}::UPDATED_BY");
+        }
+    }
+    
+    /**
+     * Returns the the name of the deleted by column
+     * @return A String containing the deleted by column
+     */
+    public static function getDeletedByColumn()
+    {
+        // get the Active Record class name
+        $class = get_called_class();
+        if(defined("{$class}::DELETED_BY"))
+        {
+            // returns the DELETED_BY Active Record class constant
+            return constant("{$class}::DELETED_BY");
+        }
+
+        return NULL;
+    }
+
+    /**
+     * Returns the the name of the deleted by user id column
+     * @return A String containing the deleted by id column
+     */
+    public static function getDeletedByUserIdColumn()
+    {
+        // get the Active Record class name
+        $class = get_called_class();
+        if(defined("{$class}::DELETED_BY_USER_ID"))
+        {
+            // returns the DELETED_BY_USER_ID Active Record class constant
+            return constant("{$class}::DELETED_BY_USER_ID");
+        }
+
+        return NULL;
+    }
+
+    /**
+     * Returns the the name of the deleted at column
+     * @return A String containing the deleted at column
+     */
+    public function getUpdatedByUserIdColumn()
+    {
+        // get the Active Record class name
+        $class = get_called_class();
+        if(defined("{$class}::UPDATED_BY_USER_ID"))
+        {
+            // returns the UPDATED_BY_USER_ID Active Record class constant
+            return constant("{$class}::UPDATED_BY_USER_ID");
+        }
+
+        return NULL;
+    }
+
+    /**
+     * Returns the the name of the deleted at column
+     * @return A String containing the deleted at column
+     */
+    public function getCreatedByUserIdColumn()
+    {
+        // get the Active Record class name
+        $class = get_called_class();
+        if(defined("{$class}::CREATED_BY_USER_ID"))
+        {
+            // returns the CREATEDBYUSERID Active Record class constant
+            return constant("{$class}::CREATED_BY_USER_ID");
+        }
+
+        return NULL;
+    }
+
+    /**
+     * Returns the the name of the created by unit id column
+     * @return A String containing the created by unit id column
+     */
+    public function getCreatedByUnitIdColumn()
+    {
+        // get the Active Record class name
+        $class = get_called_class();
+        if(defined("{$class}::CREATED_BY_UNIT_ID"))
+        {
+            // returns the CREATED_BY_UNIT_ID Active Record class constant
+            return constant("{$class}::CREATED_BY_UNIT_ID");
+        }
+
+        return NULL;
+    }
+    
+    /**
      * Returns the the name of the sequence for primary key
      * @return A String containing the sequence name
      */
@@ -568,7 +686,12 @@ abstract class TRecord implements IteratorAggregate
         // check if the object has an ID or exists in the database
         $pk = $this->getPrimaryKey();
         $createdat = $this->getCreatedAtColumn();
+        $createdby = $this->getCreatedByColumn();
         $updatedat = $this->getUpdatedAtColumn();
+        $updatedby = $this->getUpdatedByColumn();
+        $updatedbyuserid = $this->getUpdatedByUserIdColumn();
+        $createdbyuserid = $this->getCreatedByUserIdColumn();
+        $createdbyunitid = $this->getCreatedByUnitIdColumn();
         
         if (method_exists($this, 'onBeforeStore'))
         {
@@ -633,6 +756,19 @@ abstract class TRecord implements IteratorAggregate
                 $date_mask = (in_array($info['type'], ['sqlsrv', 'dblib', 'mssql'])) ? 'Ymd H:i:s' : 'Y-m-d H:i:s';
                 $sql->setRowData($createdat, date($date_mask));
             }
+            
+            if (!empty($createdby))
+            {
+                $sql->setRowData($createdby, TSession::getValue('login'));
+            }
+            if (!empty($createdbyuserid))
+            {
+                $sql->setRowData($createdbyuserid, TSession::getValue('userid'));
+            }
+            if (!empty($createdbyunitid))
+            {
+                $sql->setRowData($createdbyunitid, TSession::getValue('userunitid'));
+            }
         }
         else
         {
@@ -679,6 +815,16 @@ abstract class TRecord implements IteratorAggregate
                 $info = TTransaction::getDatabaseInfo();
                 $date_mask = (in_array($info['type'], ['sqlsrv', 'dblib', 'mssql'])) ? 'Ymd H:i:s' : 'Y-m-d H:i:s';
                 $sql->setRowData($updatedat, date($date_mask));
+            }
+            
+            if (!empty($updatedby))
+            {
+                $sql->setRowData($updatedby, TSession::getValue('login'));
+            }
+
+            if (!empty($updatedbyuserid))
+            {
+                $sql->setRowData($updatedbyuserid, TSession::getValue('userid'));
             }
         }
         
@@ -971,6 +1117,9 @@ abstract class TRecord implements IteratorAggregate
         $id = $id ? $id : $this->$pk;
 
         $deletedat = self::getDeletedAtColumn();
+        $deletedby = self::getDeletedByColumn();
+        $deletedbyuserid = self::getDeletedByUserIdColumn();
+
         if ($deletedat)
         {
             // creates a Update instruction
@@ -980,6 +1129,15 @@ abstract class TRecord implements IteratorAggregate
             $info = TTransaction::getDatabaseInfo();
             $date_mask = (in_array($info['type'], ['sqlsrv', 'dblib', 'mssql'])) ? 'Ymd H:i:s' : 'Y-m-d H:i:s';
             $sql->setRowData($deletedat, date($date_mask));
+            if($deletedby)
+            {
+                $sql->setRowData($deletedby, TSession::getValue('login'));
+            }
+            
+            if($deletedbyuserid)
+            {
+                $sql->setRowData($deletedbyuserid, TSession::getValue('userid'));
+            }
         }
         else
         {

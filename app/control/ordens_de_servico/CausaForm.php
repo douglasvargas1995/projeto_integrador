@@ -38,7 +38,6 @@ class CausaForm extends TPage
         $id->setSize(100);
         $nome->setSize('100%');
 
-
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Nome:", '#ff0000', '14px', null, '100%'),$nome]);
         $row1->layout = ['col-sm-6','col-sm-6'];
 
@@ -154,6 +153,11 @@ class CausaForm extends TPage
     {
 
     } 
+
+    public static function getFormName()
+    {
+        return self::$formName;
+    }
 
 }
 

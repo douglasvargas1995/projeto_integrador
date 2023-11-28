@@ -42,7 +42,7 @@ class BuilderTableDiffForm extends TPage
 
 	        $row = new TTableRow('thead');
 			$cell = $row->addCell(new TLabel("Ações"));
-			$cell->style = 'width: 100px';
+			$cell->style = 'width: 165px';
 			$cell = $row->addCell(new TLabel("Tabelas da base de dados"));
 			$cell = $row->addCell(new TLabel("Tabelas do Builder"));
 			$cell = $row->addCell(new TLabel("Situação"));

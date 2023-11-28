@@ -1,5 +1,7 @@
 <?php
 
+use Adianti\Widget\Base\TScript;
+
 class FormaPagamentoHeaderList extends TPage
 {
     private $form; // form
@@ -41,7 +43,6 @@ class FormaPagamentoHeaderList extends TPage
 
         $id->setSize('100%');
         $nome->setSize('100%');
-
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -501,6 +502,7 @@ class FormaPagamentoHeaderList extends TPage
             $class = get_class($this);
             $onReloadParam = ['offset' => 0, 'first_page' => 1, 'target_container' => $param['target_container'] ?? null];
             AdiantiCoreApplication::loadPage($class, 'onReload', $onReloadParam);
+            TScript::create('$(".select2").prev().select2("close");');
         }
         else
         {

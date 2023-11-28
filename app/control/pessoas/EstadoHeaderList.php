@@ -1,5 +1,7 @@
 <?php
 
+use Adianti\Widget\Base\TScript;
+
 class EstadoHeaderList extends TPage
 {
     private $form; // form
@@ -49,8 +51,6 @@ class EstadoHeaderList extends TPage
         $nome->setSize('100%');
         $sigla->setSize('100%');
         $codigo_ibge->setSize('100%');
-
-
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -265,6 +265,7 @@ class EstadoHeaderList extends TPage
             $class = get_class($this);
             $onReloadParam = ['offset' => 0, 'first_page' => 1, 'target_container' => $param['target_container'] ?? null];
             AdiantiCoreApplication::loadPage($class, 'onReload', $onReloadParam);
+            TScript::create('$(".select2").prev().select2("close");');
         }
         else
         {

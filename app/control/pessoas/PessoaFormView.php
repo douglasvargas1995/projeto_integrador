@@ -53,8 +53,6 @@ class PessoaFormView extends TPage
         $label22 = new TLabel("Grupos:", '', '14px', 'B', '100%');
         $grupos = new TTextDisplay($pessoa->pessoa_grupo_grupo_pessoa_to_string, '', '16px', '');
 
-
-
         $row1 = $this->form->addFields([$label2,$text1],[$label4,$text9],[$label6,$text10]);
         $row1->layout = [' col-sm-4',' col-sm-4',' col-sm-4'];
 

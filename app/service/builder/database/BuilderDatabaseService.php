@@ -5,8 +5,6 @@
  */
 class BuilderDatabaseService
 {
-	const BASE_URL = 'https://manager.adiantibuilder.com.br/ws.php?version=2&token=';
-
     public static function makeColumnComponentDiff($table_name_equals, $table_renames, $table_equals, $table_drops, $table_news, $showConfirm, $databaseBuilder, $databaseProject, $databaseType, $tablesProject)
     {
         $param = [
@@ -222,9 +220,12 @@ class BuilderDatabaseService
 	{
 		$ini = AdiantiApplicationConfig::get();
 
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?version=2&token=";
+
 		$ch = curl_init();
 		$defaults = [
-    		CURLOPT_URL            => self::BASE_URL.$ini['general']['token']. '&' .http_build_query($param),
+    		CURLOPT_URL            => $url.$ini['general']['token']. '&' .http_build_query($param),
     		CURLOPT_CUSTOMREQUEST  => 'GET',
     		CURLOPT_RETURNTRANSFER => TRUE,
     		CURLOPT_SSL_VERIFYPEER => FALSE,
@@ -264,16 +265,20 @@ class BuilderDatabaseService
     {
         $ini = AdiantiApplicationConfig::get();
 
+        $manager_url = $ini['builder']['manager_url'];
+        $url = "{$manager_url}/ws.php?version=2&token=";
+
         $ch = curl_init();
         $defaults = [
-            CURLOPT_URL            => self::BASE_URL.$ini['general']['token'],
+            CURLOPT_URL            => $url.$ini['general']['token'],
             CURLOPT_CUSTOMREQUEST  => 'POST',
             CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_CONNECTTIMEOUT => 10,
-            CURLOPT_POSTFIELDS     => json_encode($param)
+            CURLOPT_CONNECTTIMEOUT => 20,
+            CURLOPT_POSTFIELDS     => json_encode($param),
+            CURLOPT_HTTPHEADER => [ 'Content-Type: application/json' ]
         ];
 
         curl_setopt_array($ch, $defaults);

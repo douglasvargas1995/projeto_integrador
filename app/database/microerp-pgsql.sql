@@ -102,6 +102,7 @@ CREATE TABLE item_banner_postagem(
       data_fim timestamp   , 
       foto text   , 
       obs text   , 
+      status text   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE ordem_servico( 

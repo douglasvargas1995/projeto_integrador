@@ -1,5 +1,7 @@
 <?php
 
+use Adianti\Widget\Base\TScript;
+
 class BannerHeaderList extends TPage
 {
     private $form; // form
@@ -50,8 +52,6 @@ class BannerHeaderList extends TPage
         $status->setSize('100%');
         $pessoa_id->setSize('100%');
         $descricao->setSize('100%');
-
-
 
         // creates a Datagrid
         $this->datagrid = new TDataGrid;
@@ -172,6 +172,13 @@ class BannerHeaderList extends TPage
 
         $this->datagrid_form->addField($button_cadastrar);
 
+        $button_atualizar = new TButton('button_button_atualizar');
+        $button_atualizar->setAction(new TAction(['BannerHeaderList', 'onRefresh']), "Atualizar");
+        $button_atualizar->addStyleClass('btn-default');
+        $button_atualizar->setImage('fas:sync-alt #03a9f4');
+
+        $this->datagrid_form->addField($button_atualizar);
+
         $dropdown_button_exportar = new TDropDown("Exportar", 'fas:file-export #2d3436');
         $dropdown_button_exportar->setPullSide('right');
         $dropdown_button_exportar->setButtonClass('btn btn-default waves-effect dropdown-toggle');
@@ -181,6 +188,7 @@ class BannerHeaderList extends TPage
         $dropdown_button_exportar->addPostAction( "XML", new TAction(['BannerHeaderList', 'onExportXml'],['static' => 1]), self::$formName, 'far:file-code #95a5a6' );
 
         $head_left_actions->add($button_cadastrar);
+        $head_left_actions->add($button_atualizar);
 
         $head_right_actions->add($dropdown_button_exportar);
 
@@ -494,6 +502,10 @@ class BannerHeaderList extends TPage
             TTransaction::rollback(); // undo all pending operations
         }
     }
+    public function onRefresh($param = null) 
+    {
+        $this->onReload([]);
+    }
 
     /**
      * Register the filter in the session
@@ -543,6 +555,7 @@ class BannerHeaderList extends TPage
             $class = get_class($this);
             $onReloadParam = ['offset' => 0, 'first_page' => 1, 'target_container' => $param['target_container'] ?? null];
             AdiantiCoreApplication::loadPage($class, 'onReload', $onReloadParam);
+            TScript::create('$(".select2").prev().select2("close");');
         }
         else
         {

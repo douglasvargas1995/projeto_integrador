@@ -1648,7 +1648,7 @@ background-color: #f5f5f5 !important;
 @media (min-width: 767px) {
     div.builder-menu .dropdown.show {
         background-color: #007bff !important;
-color:#fff !important;
+                color:#fff !important;
     } 
 }
 
@@ -1656,17 +1656,17 @@ color:#fff !important;
     
     div.builder-menu .dropdown.show>a {
         background-color: #007bff !important;
-color:#fff !important;
+                color:#fff !important;
     }
 }
 
 .steps li.active .step-number, .steps li.active:before, .steps li.complete .step-number, .steps li.complete:before {
     background-color: #007bff !important;
-color:#fff !important;
+                color:#fff !important;
 }
 
 #login-wrapper .card > .panel-heading {
-    background-color: #25292b !important;
+    background-color: #25292b !important; 
 color: #fff !important;   
     border-top: 2px solid #25292b;
 }

@@ -55,9 +55,21 @@ class BannerFormView extends TPage
         $label5 = new TLabel("Status:", '', '12px', '');
         $text5 = new TTextDisplay($transformed_banner_status, '', '12px', '');
         $label6 = new TLabel("Longitude:", '', '12px', '');
-        $text6 = new TTextDisplay(number_format($banner->longitude, '2', ',', '.'), '', '12px', '');
+        $text6 = new TTextDisplay(number_format((double)$banner->longitude, '2', ',', '.'), '', '12px', '');
+        $imageCarousel_654ac81c7d104 = new BImageCarousel();
 
+        $imageCarousel_654ac81c7d104->setSize('100%' ,'300');
+        $imageCarousel_654ac81c7d104->enableThumbs();
+        $imageCarousel_654ac81c7d104->setSizeThumbs('80' ,'60');
 
+        if(!empty($banner->foto))
+        {
+            $imageCarousel_654ac81c7d104_sources = explode(',', $banner->foto);
+            $imageCarousel_654ac81c7d104_sources = array_map(function($item){
+                return 'download.php?file='.$item;
+            }, $imageCarousel_654ac81c7d104_sources);
+            $imageCarousel_654ac81c7d104->setSources($imageCarousel_654ac81c7d104_sources);
+        }
 
         $row1 = $this->form->addFields([$label1],[$text1],[$label2],[$text2]);
         $row2 = $this->form->addFields([$label3],[$text3],[$label4],[$text4]);
@@ -79,7 +91,7 @@ class BannerFormView extends TPage
                 try
                 {
                     $date = new DateTime($value);
-                    return $date->format('d/m/Y');
+                    return $date->format('d/m/Y H:i');
                 }
                 catch (Exception $e)
                 {
@@ -95,7 +107,7 @@ class BannerFormView extends TPage
                 try
                 {
                     $date = new DateTime($value);
-                    return $date->format('d/m/Y');
+                    return $date->format('d/m/Y H:i');
                 }
                 catch (Exception $e)
                 {
@@ -120,6 +132,8 @@ class BannerFormView extends TPage
         $panel->add(new BootstrapDatagridWrapper($this->item_banner_postagem_banner_id_list));
 
         $this->form->addContent([$panel]);
+        $row4 = $this->form->addFields([$imageCarousel_654ac81c7d104]);
+        $row4->layout = [' col-sm-12'];
 
         // vertical box container
         $container = new TVBox;

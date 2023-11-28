@@ -36,7 +36,6 @@ class TipoPostagemForm extends TPage
         $id->setSize(100);
         $descricao->setSize('100%');
 
-
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Descrição:", null, '14px', null, '100%'),$descricao]);
         $row1->layout = ['col-sm-6','col-sm-6'];
 
@@ -152,6 +151,11 @@ class TipoPostagemForm extends TPage
     {
 
     } 
+
+    public static function getFormName()
+    {
+        return self::$formName;
+    }
 
 }
 

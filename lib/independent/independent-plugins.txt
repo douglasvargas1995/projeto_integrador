@@ -8,3 +8,4 @@ lib/independent/js/cropper.min.js
 lib/independent/js/zxing.index.min.js
 lib/independent/js/webcam.min.js
 lib/independent/js/pickr.min.js
+lib/independent/js/splide.min.js

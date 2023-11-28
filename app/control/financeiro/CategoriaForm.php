@@ -161,5 +161,10 @@ class CategoriaForm extends TPage
 
     } 
 
+    public static function getFormName()
+    {
+        return self::$formName;
+    }
+
 }
 

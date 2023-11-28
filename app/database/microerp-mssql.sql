@@ -102,6 +102,7 @@ CREATE TABLE item_banner_postagem(
       data_fim datetime2   , 
       foto nvarchar(max)   , 
       obs nvarchar(max)   , 
+      status nvarchar(max)   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE ordem_servico( 

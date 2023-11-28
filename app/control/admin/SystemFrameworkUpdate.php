@@ -85,11 +85,13 @@ class SystemFrameworkUpdate extends TPage
         $button->setImage('fa:sync-alt');
         $button->addStyleClass('btn-success');
 
+        $ini = AdiantiApplicationConfig::get();
+
         $infos = new TElement('div');
         $infos->style = 'padding: 10px;';
         $infos->add('<h5>' . _bt('Some important information') . '!</h5>');
         $infos->add('<div>' . _bt('A backup will be performed in your project <b>tmp</b> directory, containing the folders and files replaced during the process') . '</div>');
-        $infos->add('<div>' .  _bt('See the complete changelog') . ': <br> <a target="_blank" href="https://manager.adiantibuilder.com.br/changelogs">Adianti Builder</a> <br> <a target="_blank" href="https://www.adianti.com.br/framework-changelog">Adianti Framework</a></div>');
+        $infos->add('<div>' .  _bt('See the complete changelog') . ': <br> <a target="_blank" href="'.$ini['builder']['manager_url'].'/changelogs">Adianti Builder</a> <br> <a target="_blank" href="https://www.adianti.com.br/framework-changelog">Adianti Framework</a></div>');
         
         $panel = new TPanelGroup('System Framework Update');
         $panel->add($infos);

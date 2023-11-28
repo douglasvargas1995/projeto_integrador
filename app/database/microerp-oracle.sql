@@ -102,6 +102,7 @@ CREATE TABLE item_banner_postagem(
       data_fim timestamp(0)   , 
       foto varchar(3000)   , 
       obs varchar(3000)   , 
+      status varchar(3000)   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE ordem_servico( 
@@ -336,13 +337,13 @@ CREATE OR REPLACE TRIGGER api_error_id_seq_tr
 
 BEFORE INSERT ON api_error FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT api_error_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT api_error_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE banner_id_seq START WITH 1 INCREMENT BY 1; 
@@ -351,13 +352,13 @@ CREATE OR REPLACE TRIGGER banner_id_seq_tr
 
 BEFORE INSERT ON banner FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT banner_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT banner_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE categoria_id_seq START WITH 1 INCREMENT BY 1; 
@@ -366,13 +367,13 @@ CREATE OR REPLACE TRIGGER categoria_id_seq_tr
 
 BEFORE INSERT ON categoria FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT categoria_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT categoria_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE causa_id_seq START WITH 1 INCREMENT BY 1; 
@@ -381,13 +382,13 @@ CREATE OR REPLACE TRIGGER causa_id_seq_tr
 
 BEFORE INSERT ON causa FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT causa_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT causa_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE cep_cache_id_seq START WITH 1 INCREMENT BY 1; 
@@ -396,13 +397,13 @@ CREATE OR REPLACE TRIGGER cep_cache_id_seq_tr
 
 BEFORE INSERT ON cep_cache FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT cep_cache_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT cep_cache_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE cidade_id_seq START WITH 1 INCREMENT BY 1; 
@@ -411,13 +412,13 @@ CREATE OR REPLACE TRIGGER cidade_id_seq_tr
 
 BEFORE INSERT ON cidade FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT cidade_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT cidade_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE conta_id_seq START WITH 1 INCREMENT BY 1; 
@@ -426,13 +427,13 @@ CREATE OR REPLACE TRIGGER conta_id_seq_tr
 
 BEFORE INSERT ON conta FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT conta_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT conta_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE estado_id_seq START WITH 1 INCREMENT BY 1; 
@@ -441,13 +442,13 @@ CREATE OR REPLACE TRIGGER estado_id_seq_tr
 
 BEFORE INSERT ON estado FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT estado_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT estado_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE forma_pagamento_id_seq START WITH 1 INCREMENT BY 1; 
@@ -456,13 +457,13 @@ CREATE OR REPLACE TRIGGER forma_pagamento_id_seq_tr
 
 BEFORE INSERT ON forma_pagamento FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT forma_pagamento_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT forma_pagamento_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE grupo_pessoa_id_seq START WITH 1 INCREMENT BY 1; 
@@ -471,13 +472,13 @@ CREATE OR REPLACE TRIGGER grupo_pessoa_id_seq_tr
 
 BEFORE INSERT ON grupo_pessoa FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT grupo_pessoa_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT grupo_pessoa_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE item_banner_postagem_id_seq START WITH 1 INCREMENT BY 1; 
@@ -486,13 +487,13 @@ CREATE OR REPLACE TRIGGER item_banner_postagem_id_seq_tr
 
 BEFORE INSERT ON item_banner_postagem FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT item_banner_postagem_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT item_banner_postagem_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE ordem_servico_id_seq START WITH 1 INCREMENT BY 1; 
@@ -501,13 +502,13 @@ CREATE OR REPLACE TRIGGER ordem_servico_id_seq_tr
 
 BEFORE INSERT ON ordem_servico FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT ordem_servico_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT ordem_servico_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE ordem_servico_atendimento_id_seq START WITH 1 INCREMENT BY 1; 
@@ -516,13 +517,13 @@ CREATE OR REPLACE TRIGGER ordem_servico_atendimento_id_seq_tr
 
 BEFORE INSERT ON ordem_servico_atendimento FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT ordem_servico_atendimento_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT ordem_servico_atendimento_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE ordem_servico_item_id_seq START WITH 1 INCREMENT BY 1; 
@@ -531,13 +532,13 @@ CREATE OR REPLACE TRIGGER ordem_servico_item_id_seq_tr
 
 BEFORE INSERT ON ordem_servico_item FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT ordem_servico_item_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT ordem_servico_item_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE pessoa_id_seq START WITH 1 INCREMENT BY 1; 
@@ -546,13 +547,13 @@ CREATE OR REPLACE TRIGGER pessoa_id_seq_tr
 
 BEFORE INSERT ON pessoa FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT pessoa_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT pessoa_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE pessoa_contato_id_seq START WITH 1 INCREMENT BY 1; 
@@ -561,13 +562,13 @@ CREATE OR REPLACE TRIGGER pessoa_contato_id_seq_tr
 
 BEFORE INSERT ON pessoa_contato FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT pessoa_contato_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT pessoa_contato_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE pessoa_endereco_id_seq START WITH 1 INCREMENT BY 1; 
@@ -576,13 +577,13 @@ CREATE OR REPLACE TRIGGER pessoa_endereco_id_seq_tr
 
 BEFORE INSERT ON pessoa_endereco FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT pessoa_endereco_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT pessoa_endereco_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE pessoa_grupo_id_seq START WITH 1 INCREMENT BY 1; 
@@ -591,13 +592,13 @@ CREATE OR REPLACE TRIGGER pessoa_grupo_id_seq_tr
 
 BEFORE INSERT ON pessoa_grupo FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT pessoa_grupo_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT pessoa_grupo_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE problema_id_seq START WITH 1 INCREMENT BY 1; 
@@ -606,13 +607,13 @@ CREATE OR REPLACE TRIGGER problema_id_seq_tr
 
 BEFORE INSERT ON problema FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT problema_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT problema_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE produto_id_seq START WITH 1 INCREMENT BY 1; 
@@ -621,13 +622,13 @@ CREATE OR REPLACE TRIGGER produto_id_seq_tr
 
 BEFORE INSERT ON produto FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT produto_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT produto_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE solucao_id_seq START WITH 1 INCREMENT BY 1; 
@@ -636,13 +637,13 @@ CREATE OR REPLACE TRIGGER solucao_id_seq_tr
 
 BEFORE INSERT ON solucao FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT solucao_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT solucao_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE tipo_cliente_id_seq START WITH 1 INCREMENT BY 1; 
@@ -651,13 +652,13 @@ CREATE OR REPLACE TRIGGER tipo_cliente_id_seq_tr
 
 BEFORE INSERT ON tipo_cliente FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT tipo_cliente_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT tipo_cliente_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE tipo_conta_id_seq START WITH 1 INCREMENT BY 1; 
@@ -666,13 +667,13 @@ CREATE OR REPLACE TRIGGER tipo_conta_id_seq_tr
 
 BEFORE INSERT ON tipo_conta FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT tipo_conta_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT tipo_conta_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE tipo_postagem_id_seq START WITH 1 INCREMENT BY 1; 
@@ -681,13 +682,13 @@ CREATE OR REPLACE TRIGGER tipo_postagem_id_seq_tr
 
 BEFORE INSERT ON tipo_postagem FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT tipo_postagem_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT tipo_postagem_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
 CREATE SEQUENCE tipo_produto_id_seq START WITH 1 INCREMENT BY 1; 
@@ -696,13 +697,13 @@ CREATE OR REPLACE TRIGGER tipo_produto_id_seq_tr
 
 BEFORE INSERT ON tipo_produto FOR EACH ROW 
 
-WHEN 
+    WHEN 
 
-(NEW.id IS NULL) 
+        (NEW.id IS NULL) 
 
-BEGIN 
+    BEGIN 
 
-SELECT tipo_produto_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
+        SELECT tipo_produto_id_seq.NEXTVAL INTO :NEW.id FROM DUAL; 
 
 END;
  

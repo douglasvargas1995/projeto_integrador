@@ -59,9 +59,9 @@ class BannerForm extends TPage
         $this->fieldList_6502521f54c1e->width = '100%';
         $this->fieldList_6502521f54c1e->setFieldPrefix('item_banner_postagem_banner');
         $this->fieldList_6502521f54c1e->name = 'fieldList_6502521f54c1e';
-        $this->fieldList_6502521f54c1e->class .= ' table-responsive';
 
         $this->criteria_fieldList_6502521f54c1e = new TCriteria();
+        $this->default_item_fieldList_6502521f54c1e = new stdClass();
 
         $this->form->addField($item_banner_postagem_banner_id);
         $this->form->addField($item_banner_postagem_banner___row__id);
@@ -78,7 +78,6 @@ class BannerForm extends TPage
         $status->addValidation("Status", new TRequiredValidator()); 
         $longitude->addValidation("Latitude", new TRequiredValidator()); 
         $latitude->addValidation("Longitude", new TRequiredValidator()); 
-        $item_banner_postagem_banner_tipo_postagem_id->addValidation("Tipo postagem id", new TRequiredListValidator()); 
 
         $id->setEditable(false);
         $foto->enableFileHandling();
@@ -107,7 +106,6 @@ class BannerForm extends TPage
         $item_banner_postagem_banner_data_fim->setSize(100);
         $item_banner_postagem_banner_data_inicio->setSize(100);
         $item_banner_postagem_banner_tipo_postagem_id->setSize(100);
-
 
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Pessoa:", null, '14px', null, '100%'),$pessoa_id]);
         $row1->layout = ['col-sm-6','col-sm-6'];
@@ -187,8 +185,8 @@ class BannerForm extends TPage
                 if($obj->email)
                 {
                     $tos     = $obj->email;
-                    $subject = "O Banner id #{$data->id} foi criado.";
-                    $body    = "Latitude : {$data->latitude}/nLongitude : {$data->longitude}";
+                    $subject = "O Banner foi criado.";
+                    $body    = "Status : {$data->status}\nLatitude : {$data->latitude}\nLongitude : {$data->longitude}";
                     MailService::send($tos, $subject, $body);
                 }
 
@@ -198,7 +196,7 @@ class BannerForm extends TPage
                 {
                     $tos     = $obj->email;
                     $subject = "O Banner id #{$data->id} foi editado.";
-                    $body    = "Latitude : {$data->latitude}/nLongitude : {$data->longitude}";
+                    $body    = "Status : {$data->status}\nLatitude : {$data->latitude}\nLongitude : {$data->longitude}";
                     MailService::send($tos, $subject, $body);
                 }
             }
@@ -216,6 +214,11 @@ class BannerForm extends TPage
             $item_banner_postagem_banner_items = $this->storeItems('ItemBannerPostagem', 'banner_id', $object, $this->fieldList_6502521f54c1e, function($masterObject, $detailObject){ 
 
             $masterObject->valor_total += $detailObject->valor;
+
+            if(!$detailObject->id)
+            {
+                $detailObject->status = 'NAO';
+            }
 
             }, $this->criteria_fieldList_6502521f54c1e); 
 
@@ -286,7 +289,7 @@ class BannerForm extends TPage
         $this->form->clear(true);
 
         $this->fieldList_6502521f54c1e->addHeader();
-        $this->fieldList_6502521f54c1e->addDetail( new stdClass );
+        $this->fieldList_6502521f54c1e->addDetail($this->default_item_fieldList_6502521f54c1e);
 
         $this->fieldList_6502521f54c1e->addCloneAction(null, 'fas:plus #69aa46', "Clonar");
 
@@ -295,11 +298,16 @@ class BannerForm extends TPage
     public function onShow($param = null)
     {
         $this->fieldList_6502521f54c1e->addHeader();
-        $this->fieldList_6502521f54c1e->addDetail( new stdClass );
+        $this->fieldList_6502521f54c1e->addDetail($this->default_item_fieldList_6502521f54c1e);
 
         $this->fieldList_6502521f54c1e->addCloneAction(null, 'fas:plus #69aa46', "Clonar");
 
     } 
+
+    public static function getFormName()
+    {
+        return self::$formName;
+    }
 
 }
 

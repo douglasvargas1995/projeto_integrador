@@ -117,6 +117,7 @@ class BuilderTemplateParser
         $store_tabs = $ini['general']['store_tabs'] ?? 0;
         $use_mdi_windows = $ini['general']['use_mdi_windows'] ?? 0;
         $store_mdi_windows = $ini['general']['store_mdi_windows'] ?? 0;
+        $dialog_box_type = $ini['general']['dialog_box_type'] ?? 'bootstrap';
 
         if ($use_mdi_windows) {
             $use_tabs = 1;
@@ -152,6 +153,7 @@ class BuilderTemplateParser
         $content   = str_replace('{use_mdi_windows}', $use_mdi_windows, $content);
         $content   = str_replace('{application}', $ini['general']['application'], $content);
         $content   = str_replace('{user_theme}', $user_theme, $content);
+        $content   = str_replace('{dialog_box_type}', $dialog_box_type, $content);
         
         $css       = TPage::getLoadedCSS();
         $js        = TPage::getLoadedJS();

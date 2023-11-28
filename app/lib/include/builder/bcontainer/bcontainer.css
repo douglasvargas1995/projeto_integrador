@@ -1,6 +1,7 @@
 .bContainer-fieldset{
     margin-top: 20px;
     margin-bottom: 5px;
+    position: relative;
 }
 
 .bContainer-accordion.bContainer-accordion-hide{

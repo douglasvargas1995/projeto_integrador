@@ -45,6 +45,8 @@ trait AdiantiFileSaveTrait
             $obj_store->$pk = $object->$pk;
             $obj_store->$input_name = $target_file;
             $object->$input_name = $target_file;
+
+            $dados_file->fileAdded = false;
             
             $delFile = null;
             
@@ -86,6 +88,8 @@ trait AdiantiFileSaveTrait
                         }
                         
                         $obj_store->$input_name = $target_file;
+
+                        $dados_file->fileAdded = true;
                     }
                 }
             }
@@ -100,6 +104,7 @@ trait AdiantiFileSaveTrait
             {
                 $dados_file->fileName = $obj_store->$input_name;
                 $data->$input_name = urlencode(json_encode($dados_file));
+                $data->{"{$input_name}_file_data"} = $dados_file;
             }
             else
             {
@@ -250,7 +255,8 @@ trait AdiantiFileSaveTrait
                 $file_form['delFile']  = false;
                 $file_form['idFile']   = (isset($dados_file->idFile) AND $dados_file->idFile) ? $dados_file->idFile : null;
                 $file_form['fileName'] = $dados_file->fileName;
-                
+                $file_form['fileAdded'] = false;
+
                 if (!empty($dados_file->delFile))
                 {
                     $file_form['delFile'] = true;
@@ -285,6 +291,7 @@ trait AdiantiFileSaveTrait
                             
                             $file_form['idFile'] = $target_file;
                             $file_form['fileName'] = $target_file;
+                            $file_form['fileAdded'] = true;
                             
                             $save_file = $target_file;
                         }

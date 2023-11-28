@@ -102,6 +102,7 @@ CREATE TABLE item_banner_postagem(
       `data_fim` datetime   , 
       `foto` text   , 
       `obs` text   , 
+      `status` text   , 
  PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci; 
 
 CREATE TABLE ordem_servico( 
