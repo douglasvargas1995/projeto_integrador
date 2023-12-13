@@ -101,6 +101,10 @@
         <icon>far:circle fa-fw </icon>
         <action>DashboardBanners#method=onShow</action>
       </menuitem>
+      <menuitem label="Agendamento Postagens">
+        <icon>far:circle fa-fw </icon>
+        <action>ItemBannerPostagemCalendarFormView</action>
+      </menuitem>
       <menuitem label="Banners">
         <icon>far:circle fa-fw </icon>
         <action>BannerHeaderList#method=onShow</action>

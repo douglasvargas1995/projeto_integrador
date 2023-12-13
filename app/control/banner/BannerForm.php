@@ -1,6 +1,6 @@
 <?php
 
-class BannerForm extends TPage
+class BannerForm extends TWindow
 {
     protected $form;
     private $formFields = [];
@@ -19,6 +19,9 @@ class BannerForm extends TPage
     public function __construct( $param )
     {
         parent::__construct();
+        parent::setSize(0.70, null);
+        parent::setTitle("Cadastro de banner");
+        parent::setProperty('class', 'window_modal');
 
         if(!empty($param['target_container']))
         {
@@ -32,12 +35,13 @@ class BannerForm extends TPage
 
 
         $id = new TEntry('id');
-        $pessoa_id = new TDBCombo('pessoa_id', 'microerp', 'Pessoa', 'id', '{nome}','nome asc'  );
         $foto = new TImageCropper('foto');
-        $descricao = new TEntry('descricao');
         $status = new TRadioGroup('status');
-        $longitude = new TNumeric('longitude', '0', '', '' );
-        $latitude = new TNumeric('latitude', '0', '', '' );
+        $pessoa_id = new TDBCombo('pessoa_id', 'microerp', 'Pessoa', 'id', '{nome}','nome asc'  );
+        $descricao = new TEntry('descricao');
+        $longitude = new TEntry('longitude');
+        $latitude = new TEntry('latitude');
+        $lat_lng = new MyMap('lat_lng');
         $item_banner_postagem_banner_id = new THidden('item_banner_postagem_banner_id[]');
         $item_banner_postagem_banner___row__id = new THidden('item_banner_postagem_banner___row__id[]');
         $item_banner_postagem_banner___row__data = new THidden('item_banner_postagem_banner___row__data[]');
@@ -73,18 +77,17 @@ class BannerForm extends TPage
 
         $this->fieldList_6502521f54c1e->setRemoveAction(null, 'fas:times #dd5a43', "Excluír");
 
+        $status->addValidation("Status", new TRequiredValidator()); 
         $pessoa_id->addValidation("Pessoa", new TRequiredValidator()); 
         $descricao->addValidation("Descrição", new TRequiredValidator()); 
-        $status->addValidation("Status", new TRequiredValidator()); 
-        $longitude->addValidation("Latitude", new TRequiredValidator()); 
-        $latitude->addValidation("Longitude", new TRequiredValidator()); 
 
-        $id->setEditable(false);
         $foto->enableFileHandling();
         $foto->setAllowedExtensions(["jpg","jpeg","png","gif"]);
         $foto->setImagePlaceholder(new TImage("fas:file-upload #dde5ec"));
         $status->addItems(["ATIVO"=>"ATIVO","INATIVO"=>"INATIVO"]);
         $status->setLayout('horizontal');
+        $lat_lng->setWidth('100%');
+        $lat_lng->setHeight('300px');
         $pessoa_id->enableSearch();
         $item_banner_postagem_banner_tipo_postagem_id->enableSearch();
 
@@ -93,6 +96,10 @@ class BannerForm extends TPage
 
         $item_banner_postagem_banner_data_fim->setDatabaseMask('yyyy-mm-dd hh:ii');
         $item_banner_postagem_banner_data_inicio->setDatabaseMask('yyyy-mm-dd hh:ii');
+
+        $id->setEditable(false);
+        $latitude->setEditable(false);
+        $longitude->setEditable(false);
 
         $id->setSize(100);
         $status->setSize(80);
@@ -107,25 +114,26 @@ class BannerForm extends TPage
         $item_banner_postagem_banner_data_inicio->setSize(100);
         $item_banner_postagem_banner_tipo_postagem_id->setSize(100);
 
-        $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Pessoa:", null, '14px', null, '100%'),$pessoa_id]);
-        $row1->layout = ['col-sm-6','col-sm-6'];
+        $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[$foto],[new TLabel("Status:", null, '14px', null, '100%'),$status]);
+        $row1->layout = [' col-sm-4',' col-sm-4',' col-sm-4'];
 
-        $row2 = $this->form->addFields([$foto]);
-        $row2->layout = ['col-sm-6'];
+        $row2 = $this->form->addFields([new TLabel("Pessoa:", null, '14px', null, '100%'),$pessoa_id],[new TLabel("Descrição:", null, '14px', null, '100%'),$descricao]);
+        $row2->layout = ['col-sm-6',' col-sm-6'];
 
-        $row3 = $this->form->addFields([new TLabel("Descrição:", null, '14px', null, '100%'),$descricao],[new TLabel("Status:", null, '14px', null, '100%'),$status]);
+        $row3 = $this->form->addFields([new TLabel("Longitude:", null, '14px', null, '100%'),$longitude],[new TLabel("Latitude:", null, '14px', null, '100%'),$latitude]);
         $row3->layout = ['col-sm-6','col-sm-6'];
 
-        $row4 = $this->form->addFields([new TLabel("Longitude:", null, '14px', null, '100%'),$longitude],[new TLabel("Latitude:", null, '14px', null, '100%'),$latitude]);
-        $row4->layout = ['col-sm-6','col-sm-6'];
+        $row4 = $this->form->addContent([new TFormSeparator("", '#333', '18', '#eee')]);
+        $row5 = $this->form->addFields([$lat_lng]);
+        $row5->layout = [' col-sm-12'];
 
-        $row5 = $this->form->addContent([new TFormSeparator("", '#333', '18', '#eee')]);
-        $row6 = $this->form->addContent([new TFormSeparator("Postagens", '#333', '18', '#eee')]);
-        $row7 = $this->form->addFields([$this->fieldList_6502521f54c1e]);
-        $row7->layout = [' col-sm-12'];
+        $row6 = $this->form->addContent([new TFormSeparator("", '#333', '18', '#eee')]);
+        $row7 = $this->form->addContent([new TFormSeparator("Postagens", '#333', '18', '#eee')]);
+        $row8 = $this->form->addFields([$this->fieldList_6502521f54c1e]);
+        $row8->layout = ['col-sm-12'];
 
-        $row8 = $this->form->addFields([new TLabel("Obs:", null, '14px', null, '100%'),$obs]);
-        $row8->layout = [' col-sm-12'];
+        $row9 = $this->form->addFields([new TLabel("Obs:", null, '14px', null, '100%'),$obs]);
+        $row9->layout = [' col-sm-12'];
 
         // create the form actions
         $btn_onsave = $this->form->addAction("Salvar", new TAction([$this, 'onSave'],['static' => 1]), 'fas:save #ffffff');
@@ -137,17 +145,6 @@ class BannerForm extends TPage
 
         $btn_onshow = $this->form->addAction("Voltar", new TAction(['BannerHeaderList', 'onShow']), 'fas:arrow-left #000000');
         $this->btn_onshow = $btn_onshow;
-
-        parent::setTargetContainer('adianti_right_panel');
-
-        $btnClose = new TButton('closeCurtain');
-        $btnClose->class = 'btn btn-sm btn-default';
-        $btnClose->style = 'margin-right:10px;';
-        $btnClose->onClick = "Template.closeRightPanel();";
-        $btnClose->setLabel("Fechar");
-        $btnClose->setImage('fas:times');
-
-        $this->form->addHeaderWidget($btnClose);
 
         parent::add($this->form);
 
@@ -166,7 +163,11 @@ class BannerForm extends TPage
             $object = new Banner(); // create an empty object 
 
             $data = $this->form->getData(); // get form data as array
+
             $object->fromArray( (array) $data); // load the object with data
+
+            $object->latitude = $data->lat_lng->latitude;
+            $object->longitude = $data->lat_lng->longitude;
 
             $foto_dir = 'app/fotos/banner';  
 
@@ -233,7 +234,7 @@ class BannerForm extends TPage
             TToast::show('success', "Registro salvo", 'topRight', 'far:check-circle');
             TApplication::loadPage('BannerHeaderList', 'onShow', $loadPageParam); 
 
-                        TScript::create("Template.closeRightPanel();");
+                TWindow::closeWindow(parent::getId());
             TForm::sendData(self::$formName, (object)['id' => $object->id]);
 
         }
@@ -258,6 +259,13 @@ class BannerForm extends TPage
 
                 $object = new Banner($key); // instantiates the Active Record 
 
+                if($object->latitude && $object->longitude)
+                {
+                    $lat_lng = new stdClass();
+                    $lat_lng->latitude = $object->latitude;
+                    $lat_lng->longitude = $object->longitude;
+                    $object->lat_lng = $lat_lng;
+                }
                 $this->fieldList_6502521f54c1e_items = $this->loadItems('ItemBannerPostagem', 'banner_id', $object, $this->fieldList_6502521f54c1e, function($masterObject, $detailObject, $objectItems){ 
 
                     //code here

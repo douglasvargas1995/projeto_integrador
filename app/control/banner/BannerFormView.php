@@ -44,18 +44,18 @@ class BannerFormView extends TPage
 
         }, $banner->status, $banner, null);
 
-        $label1 = new TLabel("Id:", '', '12px', '');
+        $label255 = new TLabel("Id:", '', '12px', 'B', '100%');
         $text1 = new TTextDisplay($banner->id, '', '12px', '');
-        $label2 = new TLabel("Pessoa id:", '', '12px', '');
+        $label2 = new TLabel("Pessoa:", '', '12px', 'B', '100%');
         $text2 = new TTextDisplay($banner->pessoa->nome, '', '12px', '');
-        $label3 = new TLabel("Foto:", '', '12px', '');
-        $text3 = new TTextDisplay($banner->foto, '', '12px', '');
-        $label4 = new TLabel("Descricao:", '', '12px', '');
+        $label4 = new TLabel("Descricão:", '', '12px', 'B', '100%');
         $text4 = new TTextDisplay($banner->descricao, '', '12px', '');
-        $label5 = new TLabel("Status:", '', '12px', '');
+        $label455 = new TLabel("Status:", '', '12px', 'B', '100%');
         $text5 = new TTextDisplay($transformed_banner_status, '', '12px', '');
-        $label6 = new TLabel("Longitude:", '', '12px', '');
-        $text6 = new TTextDisplay(number_format((double)$banner->longitude, '2', ',', '.'), '', '12px', '');
+        $label44 = new TLabel("Latitude:", '', '12px', 'B', '100%');
+        $text7 = new TTextDisplay($banner->latitude, '', '12px', '');
+        $label6 = new TLabel("Longitude:", '', '12px', 'B', '100%');
+        $text9 = new TTextDisplay($banner->longitude, '', '12px', '');
         $imageCarousel_654ac81c7d104 = new BImageCarousel();
 
         $imageCarousel_654ac81c7d104->setSize('100%' ,'300');
@@ -71,9 +71,13 @@ class BannerFormView extends TPage
             $imageCarousel_654ac81c7d104->setSources($imageCarousel_654ac81c7d104_sources);
         }
 
-        $row1 = $this->form->addFields([$label1],[$text1],[$label2],[$text2]);
-        $row2 = $this->form->addFields([$label3],[$text3],[$label4],[$text4]);
-        $row3 = $this->form->addFields([$label5],[$text5],[$label6],[$text6]);
+        $row1 = $this->form->addFields([$label255,$text1],[$label2,$text2],[$label4,$text4]);
+        $row1->layout = [' col-sm-2',' col-sm-4','col-sm-6'];
+
+        $row2 = $this->form->addFields([$label455,$text5],[$label44,$text7],[$label6,$text9]);
+        $row2->layout = [' col-sm-2',' col-sm-4','col-sm-6'];
+
+        $row3 = $this->form->addContent([new TFormSeparator("Postagens:", '#333', '18', '#eee')]);
 
         $this->item_banner_postagem_banner_id_list = new TQuickGrid;
         $this->item_banner_postagem_banner_id_list->disableHtmlConversion();

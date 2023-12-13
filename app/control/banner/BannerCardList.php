@@ -56,7 +56,7 @@ class BannerCardList extends TPage
     <h5 class=\"mt-0\">Preço de venda</h5>
     <p> 25,50</p>
 <p> {status}</p>
-<p> Localização {latitude} - {longitude}</p>
+<p> Localização {latitude} <br> {longitude}</p>
   </div>
 </div> ");
 

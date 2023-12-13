@@ -19,9 +19,11 @@ class TipoPostagem extends TRecord
     {
         parent::__construct($id, $callObjectLoad);
         parent::addAttribute('descricao');
+        parent::addAttribute('cor');
         parent::addAttribute('created_at');
         parent::addAttribute('update_at');
         parent::addAttribute('delete_at');
+        parent::addAttribute('icone');
             
     }
 

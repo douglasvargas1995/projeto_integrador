@@ -139,6 +139,11 @@ RewriteRule ^contacts$ rest.php?class=ContactRestService&method=handle&%{QUERY_S
 
 #Rotas geradas pelo Builder
 
+RewriteRule ^postagem/([A-Za-z0-9]*)$ rest.php?class=PostagemRestService&method=handle&id=$1&%{QUERY_STRING} [NC]
+RewriteRule ^postagem/([A-Za-z-_0-9]*)/([A-Za-z-_0-9]*)$ rest.php?class=PostagemRestService&method=$2&id=$1&%{QUERY_STRING} [NC]
+RewriteRule ^postagem$ rest.php?class=PostagemRestService&method=handle&%{QUERY_STRING} [NC]
+
+
 RewriteRule ^banner/([A-Za-z0-9]*)$ rest.php?class=BannerRestService&method=handle&id=$1&%{QUERY_STRING} [NC]
 RewriteRule ^banner/([A-Za-z-_0-9]*)/([A-Za-z-_0-9]*)$ rest.php?class=BannerRestService&method=$2&id=$1&%{QUERY_STRING} [NC]
 RewriteRule ^banner$ rest.php?class=BannerRestService&method=handle&%{QUERY_STRING} [NC]

@@ -5,6 +5,7 @@ use Adianti\Widget\Base\TElement;
 use Adianti\Widget\Form\AdiantiWidgetInterface;
 use Adianti\Widget\Form\TField;
 use Adianti\Widget\Form\TLabel;
+use Adianti\Control\TAction;
 
 /**
  * CheckButton widget
@@ -22,6 +23,8 @@ class TCheckButton extends TField implements AdiantiWidgetInterface
     private $useSwitch;
     private $labelClass;
     private $inactiveIndexValue;
+    private $changeAction;
+    protected $changeFunction;
     
     /**
      * Class Constructor
@@ -63,6 +66,31 @@ class TCheckButton extends TField implements AdiantiWidgetInterface
     }
 
     /**
+     * Define the action to be executed when the user changes the combo
+     * @param $action TAction object
+     */
+    public function setChangeAction(TAction $action)
+    {
+        if ($action->isStatic())
+        {
+            $this->changeAction = $action;
+        }
+        else
+        {
+            $string_action = $action->toString();
+            throw new Exception(AdiantiCoreTranslator::translate('Action (^1) must be static to be used in ^2', $string_action, __METHOD__));
+        }
+    }
+    
+    /**
+     * Set change function
+     */
+    public function setChangeFunction($function)
+    {
+        $this->changeFunction = $function;
+    }
+
+    /**
      * Return the post data
      */
     public function getPostData()
@@ -100,6 +128,36 @@ class TCheckButton extends TField implements AdiantiWidgetInterface
             $this->tag->{'checked'} = '1';
         }
         
+        $this->tag->{"data-value-on"} = '';
+        $this->tag->{"data-value-off"} = '';
+        if($this->indexValue)
+        {
+            $this->tag->{"data-value-on"} = $this->indexValue;
+        }
+        
+        if($this->inactiveIndexValue)
+        {
+            $this->tag->{"data-value-off"} = $this->inactiveIndexValue;
+        }
+        
+        if (isset($this->changeAction))
+        {
+            if (!TForm::getFormByName($this->formName) instanceof TForm)
+            {
+                throw new Exception(AdiantiCoreTranslator::translate('You must pass the ^1 (^2) as a parameter to ^3', __CLASS__, $this->name, 'TForm::setFields()') );
+            }
+            $string_action = $this->changeAction->serialize(FALSE);
+            
+            $this->tag->setProperty('changeaction', "__adianti_post_lookup('{$this->formName}', '{$string_action}', '{$this->id}', 'callback')");
+            $this->tag->setProperty('onChange', $this->tag->getProperty('changeaction'), FALSE);
+        }
+        
+        if (isset($this->changeFunction))
+        {
+            $this->tag->setProperty('changeaction', $this->changeFunction, FALSE);
+            $this->tag->setProperty('onChange', $this->changeFunction, FALSE);
+        }
+
         // check whether the widget is non-editable
         if (!parent::getEditable())
         {

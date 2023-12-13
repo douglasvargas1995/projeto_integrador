@@ -15,8 +15,8 @@ CREATE TABLE banner(
       descricao nvarchar(max)   , 
       valor_total float   , 
       status nvarchar(max)   , 
-      longitude float   , 
-      latitude float   , 
+      longitude nvarchar(max)   , 
+      latitude nvarchar(max)   , 
       obs nvarchar(max)   , 
       mes varchar  (2)   , 
       ano varchar  (4)   , 
@@ -282,9 +282,11 @@ CREATE TABLE tipo_conta(
 CREATE TABLE tipo_postagem( 
       id  INT IDENTITY    NOT NULL  , 
       descricao nvarchar(max)   , 
+      cor nvarchar(max)   , 
       created_at datetime2   , 
       update_at datetime2   , 
       delete_at datetime2   , 
+      icone nvarchar(max)   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE tipo_produto( 

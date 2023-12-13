@@ -15,8 +15,8 @@ CREATE TABLE banner(
       descricao varchar(3000)   , 
       valor_total binary_double   , 
       status varchar(3000)   , 
-      longitude binary_double   , 
-      latitude binary_double   , 
+      longitude varchar(3000)   , 
+      latitude varchar(3000)   , 
       obs varchar(3000)   , 
       mes varchar  (2)   , 
       ano varchar  (4)   , 
@@ -282,9 +282,11 @@ CREATE TABLE tipo_conta(
 CREATE TABLE tipo_postagem( 
       id number(10)    NOT NULL , 
       descricao varchar(3000)   , 
+      cor varchar(3000)   , 
       created_at timestamp(0)   , 
       update_at timestamp(0)   , 
       delete_at timestamp(0)   , 
+      icone varchar(3000)   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE tipo_produto( 

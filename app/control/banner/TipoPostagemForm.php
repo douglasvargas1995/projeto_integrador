@@ -30,14 +30,21 @@ class TipoPostagemForm extends TPage
 
         $id = new TEntry('id');
         $descricao = new TEntry('descricao');
+        $cor = new TColor('cor');
+        $icone = new TIcon('icone');
 
 
         $id->setEditable(false);
         $id->setSize(100);
+        $cor->setSize(110);
+        $icone->setSize('100%');
         $descricao->setSize('100%');
 
         $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Descrição:", null, '14px', null, '100%'),$descricao]);
         $row1->layout = ['col-sm-6','col-sm-6'];
+
+        $row2 = $this->form->addFields([new TLabel("Cor:", null, '14px', null, '100%'),$cor],[new TLabel("Icone:", null, '14px', null, '100%'),$icone]);
+        $row2->layout = ['col-sm-3','col-sm-3'];
 
         // create the form actions
         $btn_onsave = $this->form->addAction("Salvar", new TAction([$this, 'onSave']), 'fas:save #ffffff');

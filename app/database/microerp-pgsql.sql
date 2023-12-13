@@ -15,8 +15,8 @@ CREATE TABLE banner(
       descricao text   , 
       valor_total float   , 
       status text   , 
-      longitude float   , 
-      latitude float   , 
+      longitude text   , 
+      latitude text   , 
       obs text   , 
       mes varchar  (2)   , 
       ano varchar  (4)   , 
@@ -282,9 +282,11 @@ CREATE TABLE tipo_conta(
 CREATE TABLE tipo_postagem( 
       id  SERIAL    NOT NULL  , 
       descricao text   , 
+      cor text   , 
       created_at timestamp   , 
       update_at timestamp   , 
       delete_at timestamp   , 
+      icone text   , 
  PRIMARY KEY (id)) ; 
 
 CREATE TABLE tipo_produto( 
