@@ -23,6 +23,6 @@ class ApplicationAuthenticationRestService
             "expires" => strtotime("+ 3 hours")
         );
         
-        return JWT::encode($token, $key);
+        return JWT::encode($token, $key, 'HS256');
     }
 }

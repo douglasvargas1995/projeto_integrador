@@ -197,28 +197,28 @@ class PessoaList extends TPage
 
         $button_cadastrar = new TButton('button_button_cadastrar');
         $button_cadastrar->setAction(new TAction(['PessoaForm', 'onShow']), "Cadastrar");
-        $button_cadastrar->addStyleClass('');
+        $button_cadastrar->addStyleClass('btn-default');
         $button_cadastrar->setImage('fas:plus #69aa46');
 
         $this->datagrid_form->addField($button_cadastrar);
 
         $btnShowCurtainFilters = new TButton('button_btnShowCurtainFilters');
         $btnShowCurtainFilters->setAction(new TAction(['PessoaList', 'onShowCurtainFilters']), "Filtros");
-        $btnShowCurtainFilters->addStyleClass('');
+        $btnShowCurtainFilters->addStyleClass('btn-default');
         $btnShowCurtainFilters->setImage('fas:filter #000000');
 
         $this->datagrid_form->addField($btnShowCurtainFilters);
 
         $button_limpar_filtros = new TButton('button_button_limpar_filtros');
         $button_limpar_filtros->setAction(new TAction(['PessoaList', 'onClearFilters']), "Limpar filtros");
-        $button_limpar_filtros->addStyleClass('');
+        $button_limpar_filtros->addStyleClass('btn-default');
         $button_limpar_filtros->setImage('fas:eraser #f44336');
 
         $this->datagrid_form->addField($button_limpar_filtros);
 
         $button_atualizar = new TButton('button_button_atualizar');
         $button_atualizar->setAction(new TAction(['PessoaList', 'onRefresh']), "Atualizar");
-        $button_atualizar->addStyleClass('');
+        $button_atualizar->addStyleClass('btn-default');
         $button_atualizar->setImage('fas:sync-alt #03a9f4');
 
         $this->datagrid_form->addField($button_atualizar);

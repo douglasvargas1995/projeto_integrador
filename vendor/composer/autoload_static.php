@@ -17,6 +17,10 @@ class ComposerStaticInitc9c4554746f9331a3d1f3f9923e91a0d
             'Picqer\\Barcode\\' => 15,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'M' => 
+        array (
+            'Masterminds\\' => 12,
+        ),
         'L' => 
         array (
             'Linfo\\' => 6,
@@ -57,6 +61,10 @@ class ComposerStaticInitc9c4554746f9331a3d1f3f9923e91a0d
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Masterminds\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/masterminds/html5/src',
         ),
         'Linfo\\' => 
         array (
@@ -107,7 +115,7 @@ class ComposerStaticInitc9c4554746f9331a3d1f3f9923e91a0d
         array (
             'PHPRtfLite' => 
             array (
-                0 => __DIR__ . '/..' . '/phprtflite/phprtflite/lib',
+                0 => __DIR__ . '/..' . '/pablodalloglio/phprtflite/lib',
             ),
         ),
         'O' => 
@@ -136,30 +144,25 @@ class ComposerStaticInitc9c4554746f9331a3d1f3f9923e91a0d
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
-        'HTML5_Data' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Data.php',
-        'HTML5_InputStream' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/InputStream.php',
-        'HTML5_Parser' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Parser.php',
-        'HTML5_Tokenizer' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
-        'HTML5_TreeBuilder' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
-        'pQuery' => __DIR__ . '/..' . '/tburry/pquery/pQuery.php',
-        'pQuery\\AspEmbeddedNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
-        'pQuery\\CSSQueryTokenizer' => __DIR__ . '/..' . '/tburry/pquery/gan_selector_html.php',
-        'pQuery\\CdataNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
-        'pQuery\\CommentNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
-        'pQuery\\ConditionalTagNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
-        'pQuery\\DoctypeNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
-        'pQuery\\DomNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
-        'pQuery\\EmbeddedNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
-        'pQuery\\Html5Parser' => __DIR__ . '/..' . '/tburry/pquery/gan_parser_html.php',
-        'pQuery\\HtmlFormatter' => __DIR__ . '/..' . '/tburry/pquery/gan_formatter.php',
-        'pQuery\\HtmlParser' => __DIR__ . '/..' . '/tburry/pquery/gan_parser_html.php',
-        'pQuery\\HtmlParserBase' => __DIR__ . '/..' . '/tburry/pquery/gan_parser_html.php',
-        'pQuery\\HtmlSelector' => __DIR__ . '/..' . '/tburry/pquery/gan_selector_html.php',
-        'pQuery\\IQuery' => __DIR__ . '/..' . '/tburry/pquery/IQuery.php',
-        'pQuery\\TextNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
-        'pQuery\\TokenizerBase' => __DIR__ . '/..' . '/tburry/pquery/gan_tokenizer.php',
-        'pQuery\\XML2ArrayParser' => __DIR__ . '/..' . '/tburry/pquery/gan_xml2array.php',
-        'pQuery\\XmlNode' => __DIR__ . '/..' . '/tburry/pquery/gan_node_html.php',
+        'pQuery' => __DIR__ . '/..' . '/madbuild3r/pquery/pQuery.php',
+        'pQuery\\AspEmbeddedNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
+        'pQuery\\CSSQueryTokenizer' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_selector_html.php',
+        'pQuery\\CdataNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
+        'pQuery\\CommentNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
+        'pQuery\\ConditionalTagNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
+        'pQuery\\DoctypeNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
+        'pQuery\\DomNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
+        'pQuery\\EmbeddedNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
+        'pQuery\\Html5Parser' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_parser_html.php',
+        'pQuery\\HtmlFormatter' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_formatter.php',
+        'pQuery\\HtmlParser' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_parser_html.php',
+        'pQuery\\HtmlParserBase' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_parser_html.php',
+        'pQuery\\HtmlSelector' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_selector_html.php',
+        'pQuery\\IQuery' => __DIR__ . '/..' . '/madbuild3r/pquery/IQuery.php',
+        'pQuery\\TextNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
+        'pQuery\\TokenizerBase' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_tokenizer.php',
+        'pQuery\\XML2ArrayParser' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_xml2array.php',
+        'pQuery\\XmlNode' => __DIR__ . '/..' . '/madbuild3r/pquery/gan_node_html.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -1,4 +1,7 @@
 <?php
+
+use Adianti\Util\AdiantiStringConversion;
+
 /**
  * RTF writer
  *
@@ -197,10 +200,8 @@ class TTableWriterRTF implements ITableWriter
         // obtém a fonte e a cor de preenchimento
         $font      = $this->styles[$stylename]['font'];
         $fillcolor = $this->styles[$stylename]['bgcolor'];
-        if (utf8_encode(utf8_decode($content)) !== $content ) // SE NÃO UTF8
-        {
-            $content = utf8_encode($content);
-        }
+
+        $content = AdiantiStringConversion::assureUnicode($content);
         
         // escreve o conteúdo na célula utilizando a fonte e alinhamento
         $this->table->writeToCell($this->rowcounter, $this->colcounter,

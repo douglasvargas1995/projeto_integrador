@@ -6,6 +6,7 @@ use Adianti\Registry\TSession;
 use Adianti\Util\AdiantiStringConversion;
 use Adianti\Validator\TRequiredValidator;
 use Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 class BuilderMobileService
 {
@@ -20,7 +21,7 @@ class BuilderMobileService
         $ciphertext_raw = openssl_encrypt($plaintext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
         $hmac = hash_hmac('sha256', $ciphertext_raw, $key, true);
         
-        return base64_encode( $iv.$hmac.$ciphertext_raw );
+        return ['data' => base64_encode( $iv.$hmac.$ciphertext_raw )];
     }
 
     public static function decrypt($token)
@@ -28,7 +29,7 @@ class BuilderMobileService
         $ini = AdiantiApplicationConfig::get();
         $key = APPLICATION_NAME . $ini['general']['token'];
 
-        $c = base64_decode($token);
+        $c = base64_decode($token['data']);
         $ivlen = openssl_cipher_iv_length($cipher="AES-128-CBC");
         $iv = substr($c, 0, $ivlen);
         $hmac = substr($c, $ivlen, $sha2len=32);
@@ -54,7 +55,9 @@ class BuilderMobileService
             throw new Exception('Application token not defined');
         }
         
-        $token = self::decrypt(JWT::decode($token, $key, array('HS256')));
+        $token = (array) JWT::decode($token, new Key($key, 'HS256'));
+
+        $token = self::decrypt($token);
         
         $expires = $token['expires'];
         
@@ -137,7 +140,7 @@ class BuilderMobileService
         ];
 
         $token = self::encrypt($token);
-        $token = JWT::encode($token, $key);
+        $jwt = JWT::encode($token, $key, 'HS256');
 
         TTransaction::close();
 

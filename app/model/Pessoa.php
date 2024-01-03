@@ -11,7 +11,6 @@ class Pessoa extends TRecord
     const UPDATEDAT  = 'updated_at';
 
     private $tipo_cliente;
-    private $system_users;
 
     
 
@@ -22,7 +21,6 @@ class Pessoa extends TRecord
     {
         parent::__construct($id, $callObjectLoad);
         parent::addAttribute('tipo_cliente_id');
-        parent::addAttribute('system_users_id');
         parent::addAttribute('nome');
         parent::addAttribute('documento');
         parent::addAttribute('observacao');
@@ -59,32 +57,6 @@ class Pessoa extends TRecord
     
         // returns the associated object
         return $this->tipo_cliente;
-    }
-    /**
-     * Method set_system_users
-     * Sample of usage: $var->system_users = $object;
-     * @param $object Instance of SystemUsers
-     */
-    public function set_system_users(SystemUsers $object)
-    {
-        $this->system_users = $object;
-        $this->system_users_id = $object->id;
-    }
-
-    /**
-     * Method get_system_users
-     * Sample of usage: $var->system_users->attribute;
-     * @returns SystemUsers instance
-     */
-    public function get_system_users()
-    {
-    
-        // loads the associated object
-        if (empty($this->system_users))
-            $this->system_users = new SystemUsers($this->system_users_id);
-    
-        // returns the associated object
-        return $this->system_users;
     }
 
     /**

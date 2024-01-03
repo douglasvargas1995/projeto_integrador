@@ -1,4 +1,7 @@
 <?php
+
+use Adianti\Util\AdiantiStringConversion;
+
 /**
  * Excel writer
  *
@@ -74,12 +77,15 @@ class TTableWriterXLS implements ITableWriter
      * @param @fontstyle font face style (bold, italic)
      * @param @fontcolor font face color
      */
-    public function addStyle($stylename, $fontface, $fontsize, $fontstyle, $fontcolor, $fillcolor, $border = null)
+    public function addStyle($stylename, $fontface, $fontsize, $fontstyle, $fontcolor, $fillcolor, $border = '')
     {
         $format_left   = $this->xls-> addFormat ();
         $format_center = $this->xls-> addFormat ();
         $format_right  = $this->xls-> addFormat ();
         
+        $fontstyle = (string) $fontstyle;
+        $fontstyle = (string) $border;
+
         if (strstr($fontstyle, 'B'))
         {
             $format_left-> setBold (1);
@@ -205,13 +211,9 @@ class TTableWriterXLS implements ITableWriter
             $format = $this->styles[$this->lastStyle]['format'][$align];
         }
         
-        // se UTF8
-        if (utf8_encode(utf8_decode($content)) == $content )
-        {
-            $content = utf8_decode($content);
-        }
+        $content = AdiantiStringConversion::assureIso($content);
         
-        $this->currentTable-> write($this->rowcounter, $this->colcounter, $content, $format);
+        $this->currentTable-> write($this->rowcounter, $this->colcounter, (string) $content, $format);
         
         if ($colspan>1)
         {

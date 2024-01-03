@@ -1,5 +1,6 @@
 <?php
 
+use Adianti\Util\AdiantiStringConversion;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
@@ -182,7 +183,7 @@ class AdiantiBarcodeDocumentGenerator extends AdiantiPDFDesigner
                         }
                         else
                         {
-                            parent::writeHTML(parent::GetX(), parent::GetY(), utf8_decode($label_line));
+                            parent::writeHTML(parent::GetX(), parent::GetY(), AdiantiStringConversion::assureIso($label_line));
                             parent::Ln( $lineBreak );
                         }
                     }

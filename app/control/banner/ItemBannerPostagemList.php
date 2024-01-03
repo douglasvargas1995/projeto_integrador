@@ -449,7 +449,18 @@ class ItemBannerPostagemList extends TPage
     public static function builderSelectCheck($param)
     {
         $session_checks = TSession::getValue(__CLASS__.'builder_datagrid_check');
-        $key = $param['key'];
+
+        $valueOn = null;
+        if(!empty($param['_field_data_json']))
+        {
+            $obj = json_decode($param['_field_data_json']);
+            if($obj)
+            {
+                $valueOn = $obj->valueOn;
+            }
+        }
+
+        $key = empty($param['key']) ? $valueOn : $param['key'];
 
         if(empty($param['builder_datagrid_check']) && !empty($session_checks[$key]))
         {

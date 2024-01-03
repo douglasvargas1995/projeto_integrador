@@ -85,7 +85,38 @@ class AdiantiStringConversion
         
         return $content;
     }
-    
+
+    /**
+     * Returns the string as Iso when needed
+     */
+    public static function assureIso($content)
+    {
+        if (extension_loaded('mbstring') && extension_loaded('iconv'))
+        {
+            $enc_in = mb_detect_encoding( (string) $content, ['UTF-8', 'ASCII'], true);
+            if ($enc_in !== 'ISO-8859-1')
+            {
+                $converted = iconv($enc_in, "ISO-8859-1", (string) $content);
+                if ($converted === false)
+                {
+                    return $content;
+                }
+                
+                return $converted;
+            }
+        }
+        else
+        {
+            // se UTF8
+            if (utf8_encode(utf8_decode($content)) == $content )
+            {
+                $content = utf8_decode($content);
+            }
+        }
+        
+        return $content;
+    }
+
     /**
      * Returns the slug from string
      */

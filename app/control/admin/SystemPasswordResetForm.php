@@ -1,5 +1,6 @@
 <?php
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 /**
  * SystemPasswordResetForm
@@ -97,9 +98,9 @@ class SystemPasswordResetForm extends TPage
                 throw new Exception(_t('A new seed is required in the application.ini for security reasons'));
             }
             
-            $key = APPLICATION_NAME . $ini['general']['seed'];
+            $seed = APPLICATION_NAME . $ini['general']['seed'];
             
-            $token = (array) JWT::decode($param['jwt'], $key, array('HS256'));
+            $token = (array) JWT::decode($param['jwt'], new Key($seed, 'HS256'));
             
             $login = $token['user'];
             $expires = $token['expires'];

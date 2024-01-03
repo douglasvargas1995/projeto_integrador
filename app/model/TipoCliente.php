@@ -57,32 +57,6 @@ class TipoCliente extends TRecord
         return implode(', ', $values);
     }
 
-    public function set_pessoa_system_users_to_string($pessoa_system_users_to_string)
-    {
-        if(is_array($pessoa_system_users_to_string))
-        {
-            $values = SystemUsers::where('id', 'in', $pessoa_system_users_to_string)->getIndexedArray('name', 'name');
-            $this->pessoa_system_users_to_string = implode(', ', $values);
-        }
-        else
-        {
-            $this->pessoa_system_users_to_string = $pessoa_system_users_to_string;
-        }
-
-        $this->vdata['pessoa_system_users_to_string'] = $this->pessoa_system_users_to_string;
-    }
-
-    public function get_pessoa_system_users_to_string()
-    {
-        if(!empty($this->pessoa_system_users_to_string))
-        {
-            return $this->pessoa_system_users_to_string;
-        }
-    
-        $values = Pessoa::where('tipo_cliente_id', '=', $this->id)->getIndexedArray('system_users_id','{system_users->name}');
-        return implode(', ', $values);
-    }
-
     
 }
 

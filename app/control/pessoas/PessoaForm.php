@@ -31,7 +31,6 @@ class PessoaForm extends TPage
 
 
         $id = new TEntry('id');
-        $system_users_id = new TDBCombo('system_users_id', 'microerp', 'SystemUsers', 'id', '{name}','name asc'  );
         $documento = new TEntry('documento');
         $button_buscar_cnpj = new TButton('button_buscar_cnpj');
         $nome = new TEntry('nome');
@@ -94,7 +93,6 @@ class PessoaForm extends TPage
         $button_adicionar_pessoa_contato_pessoa->setImage('fas:plus #2ecc71');
         $button_adicionar_pessoa_endereco_pessoa->setImage('fas:plus #2ecc71');
 
-        $system_users_id->enableSearch();
         $tipo_cliente_id->enableSearch();
         $pessoa_endereco_pessoa_principal->enableSearch();
         $pessoa_endereco_pessoa_cidade_id->enableSearch();
@@ -121,7 +119,6 @@ class PessoaForm extends TPage
         $email->setSize('100%');
         $telefone->setSize('100%');
         $observacao->setSize('100%', 70);
-        $system_users_id->setSize('100%');
         $tipo_cliente_id->setSize('100%');
         $pessoa_contato_pessoa_id->setSize(200);
         $pessoa_endereco_pessoa_id->setSize(200);
@@ -144,7 +141,7 @@ class PessoaForm extends TPage
         $button_adicionar_pessoa_contato_pessoa->id = '62a5ec2b0b75d';
         $button_adicionar_pessoa_endereco_pessoa->id = '62a5eff10b765';
 
-        $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[new TLabel("Usuário do sistema:", null, '14px', null, '100%'),$system_users_id]);
+        $row1 = $this->form->addFields([new TLabel("Id:", null, '14px', null, '100%'),$id],[]);
         $row1->layout = ['col-sm-6','col-sm-6'];
 
         $row2 = $this->form->addContent([new TFormSeparator("Dados Gerais", '#333', '18', '#eee')]);

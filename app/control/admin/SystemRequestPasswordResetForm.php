@@ -84,14 +84,14 @@ class SystemRequestPasswordResetForm extends TPage
                 }
                 else
                 {
-                    $key = APPLICATION_NAME . $ini['general']['seed'];
+                    $seed = APPLICATION_NAME . $ini['general']['seed'];
                     
                     $token = array(
                         "user" => $user->login,
                         "expires" => strtotime("+ 3 hours")
                     );
                     
-                    $jwt = JWT::encode($token, $key);
+                    $jwt = JWT::encode($token, $seed, 'HS256');
                     
                     $referer = $_SERVER['HTTP_REFERER'];
                     $url = substr($referer, 0, strpos($referer, 'index.php'));

@@ -1,5 +1,6 @@
 <?php
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 class ApplicationAuthenticationService
 {
@@ -116,14 +117,14 @@ class ApplicationAuthenticationService
     public static function fromToken($token)
     {
         $ini = AdiantiApplicationConfig::get();
-        $key = APPLICATION_NAME . $ini['general']['seed'];
+        $seed = APPLICATION_NAME . $ini['general']['seed'];
         
         if (empty($ini['general']['seed']))
         {
             throw new Exception('Application seed not defined');
         }
         
-        $token = (array) JWT::decode($token, $key, array('HS256'));
+        $token = (array) JWT::decode($token, new Key($seed, 'HS256'));
         
         $login   = $token['user'];
         $userid  = $token['userid'];

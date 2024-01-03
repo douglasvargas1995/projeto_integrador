@@ -36,7 +36,7 @@ class TAccordion extends TElement
     {
         foreach ($this->elements as $child)
         {
-            $title = new TElement('button');
+            $title = new TElement('span');
             $title->class = 'taccordion';
             $title->add($child[0]);
             

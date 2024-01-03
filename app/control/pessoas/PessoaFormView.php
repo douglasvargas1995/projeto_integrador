@@ -40,8 +40,6 @@ class PessoaFormView extends TPage
         $text4 = new TTextDisplay($pessoa->nome, '', '16px', '');
         $label10 = new TLabel("Tipo do cliente:", '', '14px', 'B', '100%');
         $text2 = new TTextDisplay($pessoa->tipo_cliente->nome, '', '16px', '');
-        $label12 = new TLabel("Usuário do sistema:", '', '14px', 'B', '100%');
-        $text3 = new TTextDisplay($pessoa->system_users->name, '', '16px', '');
         $label14 = new TLabel(new TImage('fas:address-card #673AB7')."Documento:", '', '14px', 'B', '100%');
         $text5 = new TTextDisplay($pessoa->documento, '', '16px', '');
         $label16 = new TLabel("Email:", '', '14px', 'B', '100%');
@@ -53,11 +51,12 @@ class PessoaFormView extends TPage
         $label22 = new TLabel("Grupos:", '', '14px', 'B', '100%');
         $grupos = new TTextDisplay($pessoa->pessoa_grupo_grupo_pessoa_to_string, '', '16px', '');
 
+
         $row1 = $this->form->addFields([$label2,$text1],[$label4,$text9],[$label6,$text10]);
         $row1->layout = [' col-sm-4',' col-sm-4',' col-sm-4'];
 
         $row2 = $this->form->addContent([new TFormSeparator("", '#333', '18', '#eee')]);
-        $row3 = $this->form->addFields([$label8,$text4],[$label10,$text2],[$label12,$text3]);
+        $row3 = $this->form->addFields([$label8,$text4],[$label10,$text2],[]);
         $row3->layout = [' col-sm-4',' col-sm-4',' col-sm-4'];
 
         $row4 = $this->form->addFields([$label14,$text5],[$label16,$text8],[$label18,$text7]);

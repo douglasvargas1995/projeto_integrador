@@ -228,8 +228,8 @@ class AdiantiHTMLDocumentParser
                                 $new_row = str_replace('min({$'.$attribute.'})',    $this->totals[$model][$attribute]['min'], $new_row);
                                 $new_row = str_replace('max({{'.$attribute.'}})',   $this->totals[$model][$attribute]['max'], $new_row);
                                 $new_row = str_replace('max({$'.$attribute.'})',    $this->totals[$model][$attribute]['max'], $new_row);
-                                $new_row = str_replace('avg({{'.$attribute.'}})',   $this->totals[$model][$attribute]['sum'] / $this->totals[$model][$attribute]['count'], $new_row);
-                                $new_row = str_replace('avg({$'.$attribute.'})',    $this->totals[$model][$attribute]['sum'] / $this->totals[$model][$attribute]['count'], $new_row);
+                                $new_row = str_replace('avg({{'.$attribute.'}})',   $this->totals[$model][$attribute]['sum'] / $this->totals[$model][$attribute]['count'] ?? 1, $new_row);
+                                $new_row = str_replace('avg({$'.$attribute.'})',    $this->totals[$model][$attribute]['sum'] / $this->totals[$model][$attribute]['count'] ?? 1, $new_row);
                             }
                             
                             $footer->html($new_row);
@@ -287,8 +287,8 @@ class AdiantiHTMLDocumentParser
         $attributes = $matches[1];
         foreach ($attributes as $attribute)
         {
-            $html = str_replace('{$'.$attribute.'}',  $this->masterObject->$attribute, $html);
-            $html = str_replace('{{'.$attribute.'}}', $this->masterObject->$attribute, $html);
+            $html = str_replace('{$'.$attribute.'}',  (string) $this->masterObject->$attribute, $html);
+            $html = str_replace('{{'.$attribute.'}}', (string) $this->masterObject->$attribute, $html);
         }
         $html = AdiantiTemplateHandler::replaceFunctions($html);
         
